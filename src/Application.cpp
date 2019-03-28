@@ -42,9 +42,7 @@ int Application::run()
 		//Update ImGui.
 		ImGui::SFML::Update(mWindow, ImGuiClock.restart());
 
-		ImGui::Begin("yeet");
-		ImGui::Text("%d", WINDOW_SIZE.x);
-		ImGui::End();
+
 
 		//End ImGui drawing.
 		ImGui::EndFrame();
