@@ -5,6 +5,8 @@
 #include "imgui/imgui-SFML.h"
 #include "imgui/imgui.h"
 
+#include "Tilemap/Tilemap.hpp"
+
 /**
  * @brief Main program starting point.
  * 

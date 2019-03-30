@@ -47,7 +47,7 @@ void Renderer::init()
 						  .get<std::string>());
 
 	//Get texture information.
-	sf::Vector2i texture_size{
+	sf::Vector2u texture_size{
 		(unsigned)mTex.getSize().x / tex_tile_size.x,
 		(unsigned)mTex.getSize().y / tex_tile_size.y};
 
@@ -55,6 +55,13 @@ void Renderer::init()
 	unsigned index = 0;
 	for (auto& value : mSettings["tiles"].get<std::vector<unsigned>>())
 	{
+		//If the value is 0, it's empty, and we can ignore it.
+		if (value-- == 0)
+		{
+			index++;
+			continue;
+		}
+
 		//Get the rendered position of the current tile.
 		sf::Rect<unsigned> pos;
 		pos.left   = (index % grid_size.x) * tile_size.x;

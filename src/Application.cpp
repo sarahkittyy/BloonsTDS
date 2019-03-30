@@ -16,6 +16,7 @@ int Application::run()
 	//ImGui timing clock
 	sf::Clock ImGuiClock;
 
+
 	//Main application loop.
 	while (mWindow.isOpen())
 	{
