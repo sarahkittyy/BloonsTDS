@@ -42,4 +42,10 @@ private:
 	 * 
 	 */
 	Tilemap::Renderer mMapRenderer;
+
+	/**
+	 * @brief The tower manager.
+	 * 
+	 */
+	Towers::Manager mTowerManager;
 };

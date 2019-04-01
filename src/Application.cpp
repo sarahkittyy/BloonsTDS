@@ -13,6 +13,8 @@ Application::Application()
 	//Init the map renderer.
 	Tilemap::loadGraphicsFromMap(mMapRenderer,
 								 "resource/map.json");
+
+	mTowerManager.placeTower({.name = "dart-monkey", .pos = {100, 100}});
 }
 
 int Application::run()
@@ -44,6 +46,7 @@ int Application::run()
 		}
 
 		//Regular Updates.
+		mTowerManager.update();
 
 		//
 
@@ -59,6 +62,7 @@ int Application::run()
 		mWindow.clear(sf::Color::White);
 
 		mWindow.draw(mMapRenderer);
+		mWindow.draw(mTowerManager);
 
 		//Draw ImGui
 		ImGui::SFML::Render(mWindow);
