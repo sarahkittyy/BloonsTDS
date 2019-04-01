@@ -45,7 +45,7 @@ void AnimatedSprite::update()
 	Animation a = anim->second;
 
 	//If it's frozen, just return.
-	if (a.speed = -1)
+	if (a.speed == -1)
 	{
 		return;
 	}
@@ -73,6 +73,7 @@ void AnimatedSprite::resetAnimation()
 	mCurrentFrame = 0;
 	if (mAnimations.empty())
 	{
+		mRect.setSize((sf::Vector2f)mTex.getSize());
 		return;
 	}
 
@@ -103,7 +104,7 @@ void AnimatedSprite::setRectIndex(size_t index)
 
 	//Set the rect to focus on that position & size.
 	mRect.setTextureRect(sf::IntRect(px, py, tex_size.x, tex_size.y));
-	mRect.setSize({tex_size.x, tex_size.y});
+	mRect.setSize({(float)tex_size.x, (float)tex_size.y});
 }
 
 sf::FloatRect AnimatedSprite::getGlobalBounds()
