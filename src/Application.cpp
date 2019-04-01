@@ -1,6 +1,6 @@
 #include "Application.hpp"
 
-sf::Vector2u Application::WINDOW_SIZE(600, 600);
+sf::Vector2u Application::WINDOW_SIZE(800, 600);
 
 Application::Application()
 	: mWindow(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y), "Bloons TDS")
@@ -9,13 +9,16 @@ Application::Application()
 
 	//Init ImGui.
 	ImGui::SFML::Init(mWindow);
+
+	//Init the map renderer.
+	Tilemap::loadGraphicsFromMap(mMapRenderer,
+								 "resource/map.json");
 }
 
 int Application::run()
 {
 	//ImGui timing clock
 	sf::Clock ImGuiClock;
-
 
 	//Main application loop.
 	while (mWindow.isOpen())
@@ -40,6 +43,10 @@ int Application::run()
 			}
 		}
 
+		//Regular Updates.
+
+		//
+
 		//Update ImGui.
 		ImGui::SFML::Update(mWindow, ImGuiClock.restart());
 
@@ -50,6 +57,8 @@ int Application::run()
 
 		//Begin drawing.
 		mWindow.clear(sf::Color::White);
+
+		mWindow.draw(mMapRenderer);
 
 		//Draw ImGui
 		ImGui::SFML::Render(mWindow);
