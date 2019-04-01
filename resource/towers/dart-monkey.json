@@ -1,0 +1,18 @@
+{
+	"sprite": "dart-monkey.png",
+	"mapsize": [2, 2],
+	"animations": {
+		"regular": {
+			"speed": 1,
+			"frames": [0]
+		},
+		"green": {
+			"speed": 1,
+			"frames": [1]
+		},
+		"red": {
+			"speed": 1,
+			"frames": [2, 3]
+		}
+	}
+}
