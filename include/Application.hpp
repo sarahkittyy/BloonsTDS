@@ -6,6 +6,7 @@
 #include "imgui/imgui.h"
 
 #include "Tilemap/Tilemap.hpp"
+#include "Towers/Towers.hpp"
 
 /**
  * @brief Main program starting point.
@@ -35,4 +36,10 @@ private:
 	 * 
 	 */
 	static sf::Vector2u WINDOW_SIZE;
+
+	/**
+	 * @brief The tilemap renderer.
+	 * 
+	 */
+	Tilemap::Renderer mMapRenderer;
 };
