@@ -1,10 +1,10 @@
 #include "AnimatedSprite.hpp"
 
-AnimatedSprite::AnimatedSprite(sf::Texture& tex)
+AnimatedSprite::AnimatedSprite(sf::Texture* tex)
 	: mTex(tex)
 {
 	//Initialize default settings.
-	mRect.setTexture(&mTex, true);
+	mRect.setTexture(mTex, true);
 	mTexMapSize = {1, 1};
 	resetAnimation();
 }
@@ -13,6 +13,13 @@ void AnimatedSprite::draw(sf::RenderTarget& target, sf::RenderStates states) con
 {
 	states.transform *= getTransform();
 	target.draw(mRect, states);
+}
+
+void AnimatedSprite::setTexture(sf::Texture* newTex)
+{
+	mTex = newTex;
+	mRect.setTexture(mTex, true);
+	resetAnimation();
 }
 
 void AnimatedSprite::setTextureMapSize(sf::Vector2u size)
@@ -73,7 +80,7 @@ void AnimatedSprite::resetAnimation()
 	mCurrentFrame = 0;
 	if (mAnimations.empty())
 	{
-		mRect.setSize((sf::Vector2f)mTex.getSize());
+		mRect.setSize((sf::Vector2f)mTex->getSize());
 		return;
 	}
 
@@ -93,8 +100,8 @@ void AnimatedSprite::setRectIndex(size_t index)
 	
 	//Get the actual sprite size.
 	sf::Vector2u tex_size{
-		mTex.getSize().x / mTexMapSize.x,
-		mTex.getSize().y / mTexMapSize.y
+		mTex->getSize().x / mTexMapSize.x,
+		mTex->getSize().y / mTexMapSize.y
 	};
 	// clang-format on
 

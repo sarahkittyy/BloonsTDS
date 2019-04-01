@@ -28,7 +28,14 @@ public:
 	 * 
 	 * @param tex The texture of the sprite.
 	 */
-	AnimatedSprite(sf::Texture& tex);
+	AnimatedSprite(sf::Texture* tex);
+
+	/**
+	 * @brief Set the Texture.
+	 * 
+	 * @param newTex The new texture to use.
+	 */
+	void setTexture(sf::Texture* newTex);
 
 	/**
 	 * @brief Set the size of the grid of the texture.
@@ -89,7 +96,7 @@ private:
 	 * @brief The texture of the rect.
 	 * 
 	 */
-	sf::Texture& mTex;
+	sf::Texture* mTex;
 
 	/**
 	 * @brief The rectangle itself.
