@@ -7,9 +7,9 @@ Renderer::Renderer()
 {
 	//Init default settings.
 	mSettings = {
-		{"in_tile_size", std::array<int, 2>{16, 16}},
-		{"out_tile_size", std::array<int, 2>{16, 16}},
-		{"grid_size", std::array<int, 2>{40, 40}},
+		{"in_tile_size", {16, 16}},
+		{"out_tile_size", {16, 16}},
+		{"grid_size", {40, 40}},
 		{"texture_path", "resource/tilemap.png"},
 		{"tiles", std::vector<int>()}};
 
