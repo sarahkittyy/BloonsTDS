@@ -23,6 +23,16 @@ std::string Bloon::getName()
 	return mName;
 }
 
+void Bloon::setAnimation(AnimatedSprite::Animation animation)
+{
+	mAnimation = animation;
+}
+
+const AnimatedSprite::Animation& Bloon::getAnimation()
+{
+	return mAnimation;
+}
+
 void Bloon::addInside(Inside in)
 {
 	mInsides.push_back(in);

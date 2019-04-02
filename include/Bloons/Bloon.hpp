@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "AnimatedSprite.hpp"
+
 namespace Bloons
 {
 
@@ -53,6 +55,21 @@ public:
 	std::string getName();
 
 	/**
+	 * @brief Set the bloon's animation settings.
+	 * 
+	 * @param animation The animation settings.
+	 */
+	void setAnimation(AnimatedSprite::Animation animation);
+
+	/**
+	 * @brief Get the animation settings.
+	 * 
+	 * @return const AnimatedSprite::Animation& A const reference to
+	 * the settings. 
+	 */
+	const AnimatedSprite::Animation& getAnimation();
+
+	/**
 	 * @brief Add an inside for this bloon to drop when popped.
 	 * 
 	 * @param in A bloon inside.
@@ -84,6 +101,15 @@ private:
 	 * 
 	 */
 	std::vector<Inside> mInsides;
+
+	/**
+	 * @brief The bloon's animation.
+	 * 
+	 * @remarks Note that this bloon class stores no SFML graphical
+	 * information -- rather, it stores enough data to initialize a graphical representation on it's own. 
+	 * 
+	 */
+	AnimatedSprite::Animation mAnimation;
 
 	/**
 	 * @brief The name of this bloon.
