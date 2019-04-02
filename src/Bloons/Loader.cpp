@@ -33,14 +33,15 @@ void BloonLoader::init()
 		//Set the bloon speed.
 		bl.setSpeed(data.at("speed").get<float>());
 
+		//Set the bloon name.
+		bl.setName(name);
+
 		//Iterate over all elements that the bloon pops to.
 		for (auto& pop_to : data.at("pops-to").get<json::array_t>())
 		{
 			//Append the item to the Bloon instance.
-			bl.addInside({
-				.name = pop_to.at("name"),
-				.ct = pop_to.at("count").get<unsigned>()
-			});
+			bl.addInside({.name = pop_to.at("bloon"),
+						  .ct   = pop_to.at("count").get<unsigned>()});
 		}
 
 		//Emplace the final bloon template into the map.
@@ -50,11 +51,11 @@ void BloonLoader::init()
 
 const Bloon& BloonLoader::getBloon(std::string name)
 {
-	if(mBloons.find(name) == mBloons.end())
+	if (mBloons.find(name) == mBloons.end())
 	{
 		throw std::out_of_range("Bloon " + name + " not found.");
 	}
-	
+
 	return mBloons[name];
 }
 
@@ -110,7 +111,7 @@ void loadMap(Map& map, std::string name)
 			cwave.addGroup({
 				.bloon = b,
 				.spacing = (time_t)spacing*60,
-				.ct = (time_t)count,
+				.ct = (size_t)count,
 				.dur = (time_t)dur*60
 			});
 			// clang-format on

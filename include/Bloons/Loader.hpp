@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Bloons/Bloons.hpp"
+#include "Bloons/Map.hpp"
 
 namespace Bloons
 {
@@ -45,6 +46,9 @@ public:
 private:
 	/**
 	 * @brief A map of names to their bloons.
+	 * 
+	 * @remarks The names are also stored in the bloon, but it's
+	 * more convenient to map them by a copy of their name also.
 	 * 
 	 */
 	static std::unordered_map<std::string, Bloon> mBloons;
