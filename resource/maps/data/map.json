@@ -10,7 +10,7 @@
 				{
 					"bloon": "red",
 					"spacing": 0.8,
-					"ct": 15,
+					"count": 15,
 					"dur": 12
 				}
 			]
