@@ -5,6 +5,7 @@
 #include "imgui/imgui-SFML.h"
 #include "imgui/imgui.h"
 
+#include "Bloons/Bloons.hpp"
 #include "Tilemap/Tilemap.hpp"
 #include "Towers/Towers.hpp"
 
