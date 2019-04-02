@@ -14,6 +14,12 @@ Application::Application()
 	Tilemap::loadGraphicsFromMap(mMapRenderer,
 								 "resource/maps/map.json");
 
+	//Init the bloon loader.
+	Bloons::Loader::BloonLoader::init();
+
+	//Init the bloon map.
+	Bloons::Loader::loadMap(mMap, "map");
+
 	//mTowerManager.placeTower({.name = "dart-monkey", .pos = {100, 100}});
 }
 
@@ -46,6 +52,7 @@ int Application::run()
 		}
 
 		//Regular Updates.
+		mMap.update();
 		mTowerManager.update();
 
 		//

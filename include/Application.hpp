@@ -49,4 +49,10 @@ private:
 	 * 
 	 */
 	Towers::Manager mTowerManager;
+
+	/**
+	 * @brief The bloon map.
+	 * 
+	 */
+	Bloons::Map mMap;
 };
