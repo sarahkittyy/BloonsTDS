@@ -5,7 +5,7 @@ namespace Towers
 
 Tower::Tower(sf::Texture* tex)
 	: mTex(tex),
-	  mSprite(mTex)
+	  mSprite(mTex)   //<-- Initialize the sprite & texture
 {
 }
 
@@ -16,6 +16,7 @@ Tower::~Tower()
 
 void Tower::update()
 {
+	//Update the internal animated sprite.
 	mSprite.update();
 }
 
