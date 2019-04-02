@@ -1,8 +1,14 @@
 {
+	"map": "bloons.png",
+	"mapsize": [2,2],
 	"bloons": {
 		"red": {
 			"speed": 0.2,
-			"pops-to": []
+			"pops-to": [],
+			"animation": {
+				"speed": -1,
+				"frames": [0]
+			}
 		},
 		"blue": {
 			"speed": 0.6,
@@ -11,7 +17,11 @@
 					"bloon": "red",
 					"count": 1
 				}
-			]
+			],
+			"animation": {
+				"speed": -1,
+				"frames": [1]
+			}
 		},
 		"green": {
 			"speed": 0.9,
@@ -20,7 +30,11 @@
 					"bloon": "blue",
 					"count": 2
 				}
-			]
+			],
+			"animation": {
+				"speed": -1,
+				"frames": [2]
+			}
 		},
 		"yellow": {
 			"speed": 1.2,
@@ -33,7 +47,24 @@
 					"bloon": "blue",
 					"count": 2
 				}
-			]
+			],
+			"animation": {
+				"speed": -1,
+				"frames": [3]
+			}
+		},
+		"rainbow": {
+			"speed": 2.0,
+			"pops-to": [
+				{
+					"bloon": "yellow",
+					"count": 15
+				}
+			],
+			"animation": {
+				"speed": 0.3,
+				"frames": [0, 1, 2, 3]
+			}
 		}
 	}
 }
