@@ -64,7 +64,7 @@ void BloonLoader::init(ResourceManager& resources)
 	}
 }
 
-const Bloon& BloonLoader::getBloon(std::string name)
+Bloon& BloonLoader::getBloon(std::string name)
 {
 	if (mBloons.find(name) == mBloons.end())
 	{
@@ -72,6 +72,16 @@ const Bloon& BloonLoader::getBloon(std::string name)
 	}
 
 	return mBloons[name];
+}
+
+sf::Texture* BloonLoader::getBloonTexture()
+{
+	return mTexture;
+}
+
+sf::Vector2u BloonLoader::getTextureMapSize()
+{
+	return mTextureMapSize;
 }
 
 void loadMap(Map& map, std::string name)

@@ -42,9 +42,23 @@ public:
 	 * @brief Get the bloon with the given name.
 	 * 
 	 * @param name The name of the bloon.
-	 * @return const Bloon& A const reference to the bloon.
+	 * @return Bloon& A reference to the bloon.
 	 */
-	static const Bloon& getBloon(std::string name);
+	static Bloon& getBloon(std::string name);
+
+	/**
+	 * @brief Get the bloon texture.
+	 * 
+	 * @return sf::Texture* The bloon texture.
+	 */
+	static sf::Texture* getBloonTexture();
+
+	/**
+	 * @brief Get the Texture Map Size.
+	 * 
+	 * @return sf::Vector2u The texture map size.
+	 */
+	static sf::Vector2u getTextureMapSize();
 
 private:
 	/**
