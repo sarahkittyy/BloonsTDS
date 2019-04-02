@@ -10,8 +10,6 @@ namespace Bloons
 class Bloon
 {
 public:
-	Bloon(int id);
-	int id;
 };
 
 }

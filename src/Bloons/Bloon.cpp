@@ -3,9 +3,4 @@
 namespace Bloons
 {
 
-Bloon::Bloon(int id)
-{
-	this->id = id;
-}
-
 }
