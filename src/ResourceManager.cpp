@@ -1,6 +1,6 @@
 #include "ResourceManager.hpp"
 
-const sf::Texture& ResourceManager::texture(std::string path)
+sf::Texture& ResourceManager::texture(std::string path)
 {
 	auto found = mTextures.find(path);
 	if (found == mTextures.end())

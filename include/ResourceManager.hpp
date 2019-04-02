@@ -17,9 +17,9 @@ public:
 	 * @brief Retrieve the texture at the given path.
 	 * 
 	 * @param path The path of the texture.
-	 * @return const sf::Texture& A const ref to the texture.
+	 * @return sf::Texture& A ref to the texture.
 	 */
-	const sf::Texture& texture(std::string path);
+	sf::Texture& texture(std::string path);
 
 private:
 	/**
