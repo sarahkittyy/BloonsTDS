@@ -7,6 +7,8 @@
 #include "Bloons/Bloons.hpp"
 #include "Bloons/Map.hpp"
 
+#include "ResourceManager.hpp"
+
 namespace Bloons
 {
 namespace Loader
@@ -32,8 +34,9 @@ public:
 	 * @brief Call this ONCE.
 	 * Initializes bloons from the default config file.
 	 * 
+	 * @param resources Reference to the application resource manager.
 	 */
-	static void init();
+	static void init(ResourceManager& resources);
 
 	/**
 	 * @brief Get the bloon with the given name.
@@ -58,6 +61,12 @@ private:
 	 * 
 	 */
 	static sf::Vector2u mTextureMapSize;
+
+	/**
+	 * @brief Ptr to the texture map for all bloons.
+	 * 
+	 */
+	static sf::Texture* mTexture;
 };
 
 }

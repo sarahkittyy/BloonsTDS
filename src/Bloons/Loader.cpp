@@ -8,8 +8,9 @@ namespace Loader
 //Static Decl
 std::unordered_map<std::string, Bloon> BloonLoader::mBloons;
 sf::Vector2u BloonLoader::mTextureMapSize;
+sf::Texture* BloonLoader::mTexture;
 
-void BloonLoader::init()
+void BloonLoader::init(ResourceManager& resources)
 {
 	using nlohmann::json;
 
@@ -22,12 +23,14 @@ void BloonLoader::init()
 	json bloon_data;
 	file >> bloon_data;
 	file.close();
-	
+
 	//Load the map size.
 	mTextureMapSize = {
 		bloon_data.at("mapsize")[0],
-		bloon_data.at("mapsize")[1]	
-	};
+		bloon_data.at("mapsize")[1]};
+
+	//Load the texture.
+	mTexture = &resources.texture("resource/bloons/" + bloon_data.at("map").get<std::string>());
 
 	for (auto& bloon : bloon_data.at("bloons").items())
 	{
@@ -43,13 +46,10 @@ void BloonLoader::init()
 
 		//Set the bloon name.
 		bl.setName(name);
-		
+
 		//Set the animation.
-		bl.setAnimation({
-			.frames = data.at("animation").at("frames")
-			.get<std::vector<unsigned>>(),
-			.speed = data.at("speed").get<float>()
-		});
+		bl.setAnimation({.frames = data.at("animation").at("frames").get<std::vector<unsigned>>(),
+						 .speed  = data.at("speed").get<float>()});
 
 		//Iterate over all elements that the bloon pops to.
 		for (auto& pop_to : data.at("pops-to").get<json::array_t>())

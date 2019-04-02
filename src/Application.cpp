@@ -3,7 +3,8 @@
 sf::Vector2u Application::WINDOW_SIZE(800, 600);
 
 Application::Application()
-	: mWindow(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y), "Bloons TDS")
+	: mWindow(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y), "Bloons TDS"),
+	  mTowerManager(mResources)
 {
 	mWindow.setFramerateLimit(60);
 
@@ -16,7 +17,7 @@ Application::Application()
 								 "resource/maps/map.json");
 
 	//Init the bloon loader.
-	Bloons::Loader::BloonLoader::init();
+	Bloons::Loader::BloonLoader::init(mResources);
 
 	//Init the bloon map.
 	Bloons::Loader::loadMap(mMap, "map");
