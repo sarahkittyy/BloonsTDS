@@ -14,6 +14,7 @@ void Map::addPath(Path path)
 
 void Map::addWave(Wave wave)
 {
+	//wave.setBloonCallback(..);
 	mWaves.push_back(wave);
 }
 
