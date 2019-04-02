@@ -5,6 +5,8 @@
 #include "imgui/imgui-SFML.h"
 #include "imgui/imgui.h"
 
+#include "ResourceManager.hpp"
+
 #include "Bloons/Bloons.hpp"
 #include "Tilemap/Tilemap.hpp"
 #include "Towers/Towers.hpp"
@@ -37,6 +39,12 @@ private:
 	 * 
 	 */
 	static sf::Vector2u WINDOW_SIZE;
+
+	/**
+	 * @brief The main application resource manager.
+	 * 
+	 */
+	ResourceManager mResources;
 
 	/**
 	 * @brief The tilemap renderer.
