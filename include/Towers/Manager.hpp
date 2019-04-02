@@ -9,6 +9,8 @@
 #include "Towers/Loader.hpp"
 #include "Towers/Tower.hpp"
 
+#include "ResourceManager.hpp"
+
 namespace Towers
 {
 
@@ -20,6 +22,13 @@ namespace Towers
 class Manager : public sf::Drawable
 {
 public:
+	/**
+	 * @brief Construct a new Manager object
+	 * 
+	 * @param resources The application resource manager.
+	 */
+	Manager(ResourceManager& resources);
+
 	/**
 	 * @brief Data structure for placing new towers.
 	 * 
@@ -55,22 +64,10 @@ private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	/**
-	 * @brief The resource map, so that we can use the same texture
-	 * for multiple towers.
-	 * 
-	 * @remarks Textures from here are passed to newly initialized towers.
+	 * @brief The application resource manager.
 	 * 
 	 */
-	std::unordered_map<std::string, sf::Texture> mResources;
-
-	/**
-	 * @brief Gets the texture from the specified tower name/key,
-	 * creating one if it does not exist.
-	 * 
-	 * @param key The texture's name/key.
-	 * @return sf::Texture& A reference to the texture at that key.
-	 */
-	sf::Texture& getTexture(std::string key);
+	ResourceManager& mResources;
 
 	/**
 	 * @brief Vector of all towers.

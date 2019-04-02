@@ -76,7 +76,7 @@ private:
 	 * 
 	 */
 	sf::Texture* mTex;
-	
+
 	/**
 	 * @brief The sprite of the tower itself.
 	 * 
