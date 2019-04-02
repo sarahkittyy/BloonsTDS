@@ -14,7 +14,7 @@ Application::Application()
 	Tilemap::loadGraphicsFromMap(mMapRenderer,
 								 "resource/map.json");
 
-	mTowerManager.placeTower({.name = "dart-monkey", .pos = {100, 100}});
+	//mTowerManager.placeTower({.name = "dart-monkey", .pos = {100, 100}});
 }
 
 int Application::run()
