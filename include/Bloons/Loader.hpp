@@ -52,6 +52,12 @@ private:
 	 * 
 	 */
 	static std::unordered_map<std::string, Bloon> mBloons;
+
+	/**
+	 * @brief The size of the texture map grid, for the animated sprite.
+	 * 
+	 */
+	static sf::Vector2u mTextureMapSize;
 };
 
 }

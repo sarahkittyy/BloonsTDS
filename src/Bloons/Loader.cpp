@@ -5,7 +5,9 @@ namespace Bloons
 namespace Loader
 {
 
+//Static Decl
 std::unordered_map<std::string, Bloon> BloonLoader::mBloons;
+sf::Vector2u BloonLoader::mTextureMapSize;
 
 void BloonLoader::init()
 {
@@ -20,6 +22,12 @@ void BloonLoader::init()
 	json bloon_data;
 	file >> bloon_data;
 	file.close();
+	
+	//Load the map size.
+	mTextureMapSize = {
+		bloon_data.at("mapsize")[0],
+		bloon_data.at("mapsize")[1]	
+	};
 
 	for (auto& bloon : bloon_data.at("bloons").items())
 	{
@@ -35,6 +43,13 @@ void BloonLoader::init()
 
 		//Set the bloon name.
 		bl.setName(name);
+		
+		//Set the animation.
+		bl.setAnimation({
+			.frames = data.at("animation").at("frames")
+			.get<std::vector<unsigned>>(),
+			.speed = data.at("speed").get<float>()
+		});
 
 		//Iterate over all elements that the bloon pops to.
 		for (auto& pop_to : data.at("pops-to").get<json::array_t>())
