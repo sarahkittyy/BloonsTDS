@@ -1,3 +1,39 @@
 {
-	
+	"bloons": {
+		"red": {
+			"speed": 0.2,
+			"pops-to": []
+		},
+		"blue": {
+			"speed": 0.6,
+			"pops-to": [
+				{
+					"bloon": "red",
+					"count": 1
+				}
+			]
+		},
+		"green": {
+			"speed": 0.9,
+			"pops-to": [
+				{
+					"bloon": "blue",
+					"count": 2
+				}
+			]
+		},
+		"yellow": {
+			"speed": 1.2,
+			"pops-to": [
+				{
+					"bloon": "green",
+					"count": 1
+				},
+				{
+					"bloon": "blue",
+					"count": 2
+				}
+			]
+		}
+	}
 }
