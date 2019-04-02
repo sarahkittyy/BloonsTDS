@@ -25,7 +25,7 @@ void Tilemap::loadGraphicsFromMap(Tilemap::Renderer& renderer,
 			}
 		},
 		{"texture_path", 
-			"resource/" + data["tilesets"][0]["image"]
+			"resource/maps/" + data["tilesets"][0]["image"]
 							.get<std::string>()
 		},
 		{"tiles", data["layers"][0]["data"].get<std::vector<int>>()},
