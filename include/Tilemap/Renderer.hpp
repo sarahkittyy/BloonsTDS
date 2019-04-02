@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "ResourceManager.hpp"
+
 /**
  * @brief A collection of Tilemap-related classes.
  * 
@@ -38,8 +40,9 @@ public:
 	/**
 	 * @brief Initialize the tilemap with the given settings.
 	 * 
+	 * @param resources The application resource manager.
 	 */
-	void init();
+	void init(ResourceManager& resources);
 
 private:
 	/**
@@ -58,7 +61,7 @@ private:
 	 * @brief The map's texture.
 	 * 
 	 */
-	sf::Texture mTex;
+	sf::Texture* mTex;
 
 	/**
 	 * @brief The map's settings.

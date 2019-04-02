@@ -11,7 +11,8 @@ Application::Application()
 	ImGui::SFML::Init(mWindow);
 
 	//Init the map renderer.
-	Tilemap::loadGraphicsFromMap(mMapRenderer,
+	Tilemap::loadGraphicsFromMap(mResources,
+								 mMapRenderer,
 								 "resource/maps/map.json");
 
 	//Init the bloon loader.

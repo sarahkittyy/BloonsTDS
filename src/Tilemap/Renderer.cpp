@@ -25,7 +25,7 @@ void Renderer::options(nlohmann::json settings)
 	}
 }
 
-void Renderer::init()
+void Renderer::init(ResourceManager& resources)
 {
 	//Map settings to usable values.
 	sf::Vector2u tex_tile_size{
@@ -43,13 +43,13 @@ void Renderer::init()
 	std::vector<unsigned> tiles = mSettings["tiles"];
 
 	//Load the texture.
-	mTex.loadFromFile(mSettings["texture_path"]
-						  .get<std::string>());
+	mTex = &resources.texture(mSettings["texture_path"]
+								  .get<std::string>());
 
 	//Get texture information.
 	sf::Vector2u texture_size{
-		(unsigned)mTex.getSize().x / tex_tile_size.x,
-		(unsigned)mTex.getSize().y / tex_tile_size.y};
+		(unsigned)mTex->getSize().x / tex_tile_size.x,
+		(unsigned)mTex->getSize().y / tex_tile_size.y};
 
 	//Iterate through each tile.
 	unsigned index = 0;
@@ -96,7 +96,7 @@ void Renderer::init()
 
 void Renderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	states.texture = &mTex;
+	states.texture = mTex;
 	states.transform *= getTransform();
 	target.draw(mVertices, states);
 }

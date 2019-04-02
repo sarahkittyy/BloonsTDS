@@ -1,6 +1,7 @@
 #include "Tilemap/Tilemap.hpp"
 
-void Tilemap::loadGraphicsFromMap(Tilemap::Renderer& renderer,
+void Tilemap::loadGraphicsFromMap(ResourceManager& resources,
+								  Tilemap::Renderer& renderer,
 								  std::string path)
 {
 	using nlohmann::json;
@@ -44,5 +45,5 @@ void Tilemap::loadGraphicsFromMap(Tilemap::Renderer& renderer,
 	});
 	// clang-format on
 
-	renderer.init();
+	renderer.init(resources);
 }
