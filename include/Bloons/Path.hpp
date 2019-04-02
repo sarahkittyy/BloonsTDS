@@ -81,13 +81,13 @@ private:
 	 * @brief Internal vector of nodes.
 	 * 
 	 */
-	std::vector<Node> nodes;
+	std::vector<Node> mNodes;
 
 	/**
 	 * @brief The current selected node.
 	 * 
 	 */
-	size_t index;
+	size_t mIndex;
 };
 
 /*

@@ -5,26 +5,26 @@ namespace Bloons
 
 Path::Path()
 {
-	index = 0;
+	mIndex = 0;
 }
 
 void Path::addNode(Path::Node n)
 {
-	nodes.push_back(n);
+	mNodes.push_back(n);
 }
 
 Path::Node Path::popNode()
 {
-	if (nodes.size() == 0)
+	if (mNodes.size() == 0)
 	{
 		throw std::out_of_range("Cannot pop node off empty path!");
 	}
 	else
 	{
 		//Copy last element.
-		Node cpy = nodes[nodes.size() - 1];
+		Node cpy = mNodes[mNodes.size() - 1];
 		//Pop last element
-		nodes.pop_back();
+		mNodes.pop_back();
 		//Return
 		return cpy;
 	}
@@ -32,23 +32,23 @@ Path::Node Path::popNode()
 
 int Path::start()
 {
-	index = 0;
+	mIndex = 0;
 	return 0;
 }
 
 int Path::next()
 {
-	return ++index;
+	return ++mIndex;
 }
 
 Path::Node Path::get()
 {
-	return nodes[index];
+	return mNodes[mIndex];
 }
 
 int Path::end()
 {
-	return nodes.size();
+	return mNodes.size();
 }
 
 }
