@@ -13,6 +13,16 @@ float Bloon::getSpeed()
 	return mSpeed;
 }
 
+void Bloon::setName(std::string newName)
+{
+	mName = newName;
+}
+
+std::string Bloon::getName()
+{
+	return mName;
+}
+
 void Bloon::addInside(Inside in)
 {
 	mInsides.push_back(in);
