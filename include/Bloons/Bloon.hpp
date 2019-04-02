@@ -39,6 +39,20 @@ public:
 	float getSpeed();
 
 	/**
+	 * @brief Set the bloon name.
+	 * 
+	 * @param newName The new name of the bloon.
+	 */
+	void setName(std::string newName);
+
+	/**
+	 * @brief Get the bloon name.
+	 * 
+	 * @return std::string The name of the bloon.
+	 */
+	std::string getName();
+
+	/**
 	 * @brief Add an inside for this bloon to drop when popped.
 	 * 
 	 * @param in A bloon inside.
@@ -70,6 +84,12 @@ private:
 	 * 
 	 */
 	std::vector<Inside> mInsides;
+
+	/**
+	 * @brief The name of this bloon.
+	 * 
+	 */
+	std::string mName;
 };
 
 }
