@@ -41,9 +41,24 @@ int Path::next()
 	return ++mIndex;
 }
 
+void Path::set(int index)
+{
+	mIndex = index;
+}
+
 Path::Node Path::get()
 {
 	return mNodes[mIndex];
+}
+
+int Path::index()
+{
+	return mIndex;
+}
+
+Path::Node Path::at(int index)
+{
+	return mNodes[index];
 }
 
 int Path::end()

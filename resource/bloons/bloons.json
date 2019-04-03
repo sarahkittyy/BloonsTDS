@@ -28,7 +28,7 @@
 			"pops-to": [
 				{
 					"bloon": "blue",
-					"count": 2
+					"count": 1
 				}
 			],
 			"animation": {
@@ -42,10 +42,6 @@
 				{
 					"bloon": "green",
 					"count": 1
-				},
-				{
-					"bloon": "blue",
-					"count": 2
 				}
 			],
 			"animation": {
@@ -58,11 +54,11 @@
 			"pops-to": [
 				{
 					"bloon": "yellow",
-					"count": 15
+					"count": 500
 				}
 			],
 			"animation": {
-				"speed": 0.01,
+				"speed": 0.08,
 				"frames": [0, 1, 2, 3]
 			}
 		}

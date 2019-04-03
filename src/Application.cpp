@@ -6,6 +6,8 @@ Application::Application()
 	: mWindow(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y), "Bloons TDS"),
 	  mTowerManager(mResources)
 {
+	srand(time(NULL));
+
 	mWindow.setFramerateLimit(60);
 
 	//Init ImGui.
@@ -29,6 +31,8 @@ int Application::run()
 {
 	//ImGui timing clock
 	sf::Clock ImGuiClock;
+
+	mMap.runWave(0);
 
 	//Main application loop.
 	while (mWindow.isOpen())

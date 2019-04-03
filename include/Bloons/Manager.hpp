@@ -2,7 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <algorithm>
 #include <cmath>
+#include <cstdlib>
 #include <functional>
 
 #include "Bloons/Bloon.hpp"
@@ -34,6 +36,7 @@ private:
 		Path path;
 		Bloon bloon;
 		bool alive;
+		bool popped;
 	};
 
 public:
@@ -70,6 +73,31 @@ private:
 	 * @param b The bloon to send.
 	 */
 	void sendBloon(Bloon& b);
+
+	/**
+	 * @brief Creates a bloon sprite from the given bloon.
+	 * 
+	 * @param b The bloon to create.
+	 * @param dest The place to push the created bloonsprite.
+	 * 
+	 * @return BloonSprite& The created sprite.
+	 */
+	BloonSprite& createBloon(Bloon& b,
+							 std::vector<BloonSprite>* dest);
+
+	/**
+	 * @brief Bloons to be added into the main mBloons vector
+	 * next iteration.
+	 * 
+	 */
+	std::vector<BloonSprite> mBloonQueue;
+
+	/**
+	 * @brief Flush the queue, pushing all queue'd bloons
+	 * into the main bloon vector.
+	 * 
+	 */
+	void clearQueue();
 
 	/**
 	 * @brief The currently running wave.

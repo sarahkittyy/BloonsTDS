@@ -61,11 +61,33 @@ public:
 	int next();
 
 	/**
+	 * @brief Set the path's current node.
+	 * 
+	 * @param index The node of the path.
+	 */
+	void set(int index);
+
+	/**
 	 * @brief Return the currently indexed node.
 	 * 
 	 * @return Node The node at the current index.
 	 */
 	Node get();
+
+	/**
+	 * @brief Return the current index.
+	 * 
+	 * @return int The index of the path.
+	 */
+	int index();
+
+	/**
+	 * @brief Get the node at the given index.
+	 * 
+	 * @param index The index.
+	 * @return Node The node @ index.
+	 */
+	Node at(int index);
 
 	/**
 	 * @brief Get the ending position of the path.

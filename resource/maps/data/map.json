@@ -18,16 +18,10 @@
 		{
 			"groups": [
 				{
-					"bloon": "red",
-					"spacing": 0.8,
-					"count": 15,
-					"dur": 8
-				},
-				{
 					"bloon": "rainbow",
 					"spacing": 2,
-					"count": 3,
-					"dur": 6
+					"count": 1,
+					"dur": 20
 				}
 			]
 		}

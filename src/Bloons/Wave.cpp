@@ -10,7 +10,7 @@ Wave::Wave()
 	mDone		  = false;
 }
 
-void Wave::addGroup(BloonGroup b)
+void Wave::addGroup(Wave::BloonGroup b)
 {
 	mGroups.push_back(b);
 }
@@ -61,8 +61,14 @@ void Wave::update()
 		return;
 	}
 
+	//Assert there are still active groups. If not, then we're done.
+	if (mActiveGroups.empty())
+	{
+		mDone = true;
+		return;
+	}
 	//We can send another wave if the top wave's duration is over.
-	if (mSubTimer > mActiveGroups.back().group->dur)
+	else if (mSubTimer > mActiveGroups.back().group->dur)
 	{
 		if (mCurrentGroup < mGroups.size())
 		{
@@ -102,7 +108,7 @@ void Wave::update()
 		SubWave* sub = &mActiveGroups[i];
 
 		//If their bloon index is over their ct..
-		if (sub->index > sub->group->ct)
+		if (sub->index >= sub->group->ct)
 		{
 			//..Delete it.
 			mActiveGroups.erase(mActiveGroups.begin() + i);

@@ -39,6 +39,9 @@ void Manager::update()
 		//Update it..
 		mCurrentWave.update();
 
+		//Clear the bloon queue.
+		clearQueue();
+
 		//Update each bloon.
 		for (auto& bloon : mBloons)
 		{
@@ -81,6 +84,53 @@ void Manager::update()
 				bloon.r.move(d);
 			}
 		}
+		//Handle popped bloons.
+		for (auto bloon = mBloons.begin();
+			 bloon != mBloons.end(); ++bloon)
+		{
+			if (!bloon->popped)
+			{
+				continue;
+			}   //Only deal with popped bloons.
+
+			//Iterate over each inner bloon..
+			auto insides = bloon->bloon.getInsides();
+			for (auto& inner : insides)
+			{
+				//Get the distribution of bloons.
+				/*
+				Bloons should be around 5 px apart,
+				so we should let the random function
+				get values between +/- 5*inner.ct
+				*/
+				int dist = 10 * ((inner.ct - 1) / 2);
+				dist	 = (dist > 15) ? (15) : (dist);
+				//..
+				for (size_t i = 0; i < inner.ct; ++i)
+				{
+					//Load a bloon sprite for it.
+					BloonSprite& bl = createBloon(Loader::getBloon(inner.name), &mBloonQueue);
+					//Set it's position & path identical
+					//to the current bloon.
+					bl.path = bloon->path;
+					//Move the bloon to the new position.
+					bl.r.setPosition(bloon->r.getPosition());
+
+					//Shift it around a little, as it was popped.
+					long shiftX =
+						(dist == 0) ? (0)
+									: (rand() % (2 * dist) - dist);
+					long shiftY =
+						(dist == 0) ? (0)
+									: (rand() % (2 * dist) - dist);
+
+					bl.r.move(shiftX, shiftY);
+				}
+			}
+
+			//Set the bloon to dead.
+			bloon->alive = false;
+		}
 		//Erase dead bloons.
 		for (auto bloon = mBloons.begin(); bloon != mBloons.end();)
 		{
@@ -100,28 +150,47 @@ void Manager::update()
 	}
 }
 
+void Manager::clearQueue()
+{
+	for (auto& bloon : mBloonQueue)
+	{
+		mBloons.push_back(bloon);
+	}
+	mBloonQueue.clear();
+}
+
+Manager::BloonSprite&
+Manager::createBloon(Bloon& b,
+					 std::vector<BloonSprite>* dest)
+{
+	//Create the bloon.
+	dest->push_back({
+		.r		= Renderer(b.getName()),   //Set the renderer to the bloon.
+		.path   = getPath(),			   //Set the path for the bloon
+		.bloon  = b,					   //A copy of the bloon itself.
+		.alive  = true,					   //Bloon starts out alive.
+		.popped = false					   //Bloon is not popped yet.
+	});
+
+	//Return it.
+	return dest->back();
+}
+
 void Manager::sendBloon(Bloon& b)
 {
 	//We call this each bloon send to assert that each path
 	//is traversed as equally as possible.
 	nextPath();
-	// clang-format off
 
 	//Push the bloon.
-	mBloons.push_back({
-		.r = Renderer(b.getName()), //Set the renderer to the bloon.
-		.path = getPath(), //Set the path for the bloon
-		.bloon = b, //A copy of the bloon itself.
-		.alive = true //Bloon starts out alive
-	});
-	// clang-format on
+	BloonSprite& bl = createBloon(b, &mBloons);
 
 	//Assert we have started the path.
-	mBloons.back().path.start();
+	bl.path.start();
 	//Move the bloon to the first node's position.
-	mBloons.back().r.setPosition(getPath().get().pos);
+	bl.r.setPosition(getPath().get().pos);
 	//Set the next node to, well, the next node.
-	mBloons.back().path.next();
+	bl.path.next();
 }
 
 void Manager::nextPath()
