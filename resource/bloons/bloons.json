@@ -3,7 +3,7 @@
 	"mapsize": [2,2],
 	"bloons": {
 		"red": {
-			"speed": 0.2,
+			"speed": 0.8,
 			"pops-to": [],
 			"animation": {
 				"speed": -1,
