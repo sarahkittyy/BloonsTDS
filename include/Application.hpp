@@ -7,6 +7,7 @@
 
 #include "ResourceManager.hpp"
 
+#include "Bloons/Map.hpp"
 #include "Bloons/Bloons.hpp"
 #include "Tilemap/Tilemap.hpp"
 #include "Towers/Towers.hpp"
