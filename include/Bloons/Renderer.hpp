@@ -34,7 +34,7 @@ private:
 	 * @brief The bloon to render.
 	 * 
 	 */
-	Bloon& mBloon;
+	Bloon mBloon;
 
 	/**
 	 * @brief Updates the sprite with the bloon settings.
