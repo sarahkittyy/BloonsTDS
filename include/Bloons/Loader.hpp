@@ -4,30 +4,17 @@
 #include <nlohmann/json.hpp>
 #include <string>
 
-#include "Bloons/Bloons.hpp"
-#include "Bloons/Map.hpp"
-
+#include "Bloons/Bloon.hpp"
 #include "ResourceManager.hpp"
 
 namespace Bloons
 {
-namespace Loader
-{
-
-/**
- * @brief Initialze the given map from the given map config json file.
- * 
- * @param map The map to initialize.
- * @param name The name of the config file.
- */
-void loadMap(Map& map, std::string name);
-
 /**
  * @brief Mostly static class to load bare copyable instances
  * of bloons and their properties.
  * 
  */
-class BloonLoader
+class Loader
 {
 public:
 	/**
@@ -83,5 +70,4 @@ private:
 	static sf::Texture* mTexture;
 };
 
-}
 }

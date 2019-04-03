@@ -2,15 +2,13 @@
 
 namespace Bloons
 {
-namespace Loader
-{
 
 //Static Decl
-std::unordered_map<std::string, Bloon> BloonLoader::mBloons;
-sf::Vector2u BloonLoader::mTextureMapSize;
-sf::Texture* BloonLoader::mTexture;
+std::unordered_map<std::string, Bloon> Loader::mBloons;
+sf::Vector2u Loader::mTextureMapSize;
+sf::Texture* Loader::mTexture;
 
-void BloonLoader::init(ResourceManager& resources)
+void Loader::init(ResourceManager& resources)
 {
 	using nlohmann::json;
 
@@ -49,7 +47,9 @@ void BloonLoader::init(ResourceManager& resources)
 
 		//Set the animation.
 		bl.setAnimation({.frames = data.at("animation").at("frames").get<std::vector<unsigned>>(),
-						 .speed  = data.at("speed").get<float>()});
+						 .speed  = data.at("animation")
+									  .at("speed")
+									  .get<float>()});
 
 		//Iterate over all elements that the bloon pops to.
 		for (auto& pop_to : data.at("pops-to").get<json::array_t>())
@@ -64,7 +64,7 @@ void BloonLoader::init(ResourceManager& resources)
 	}
 }
 
-Bloon& BloonLoader::getBloon(std::string name)
+Bloon& Loader::getBloon(std::string name)
 {
 	if (mBloons.find(name) == mBloons.end())
 	{
@@ -74,78 +74,14 @@ Bloon& BloonLoader::getBloon(std::string name)
 	return mBloons[name];
 }
 
-sf::Texture* BloonLoader::getBloonTexture()
+sf::Texture* Loader::getBloonTexture()
 {
 	return mTexture;
 }
 
-sf::Vector2u BloonLoader::getTextureMapSize()
+sf::Vector2u Loader::getTextureMapSize()
 {
 	return mTextureMapSize;
 }
 
-void loadMap(Map& map, std::string name)
-{
-	using nlohmann::json;
-
-	//Get the map data.
-	std::ifstream file("resource/maps/data/" + name + ".json");
-	json map_data;
-	file >> map_data;
-	file.close();
-
-	//Iterate over all paths of the map.
-	for (auto& path : map_data.at("paths")
-						  .get<std::vector<json::array_t>>())
-	{
-		Path cpath;
-
-		//Iterate over all positions of the path.
-		for (auto& pos_arr : path)
-		{
-			sf::Vector2f pos{
-				pos_arr[0], pos_arr[1]};
-
-			//Append the position to the path.
-			cpath.addNode({.pos = pos});
-		}
-
-		//Append the path.
-		map.addPath(cpath);
-	}
-
-	//Iterate over all waves.
-	for (auto& wave : map_data.at("waves"))
-	{
-		Wave cwave;
-
-		//Iterate over all groups.
-		for (auto& group : wave.at("groups"))
-		{
-			//Load the bloon
-			Bloon b = BloonLoader::getBloon(group.at("bloon").get<std::string>());
-			//Get the spacing.
-			float spacing = group.at("spacing").get<float>();
-			//Get the bloon count.
-			unsigned count = group.at("count").get<unsigned>();
-			//Get the duration.
-			float dur = group.at("dur").get<float>();
-
-			//Add the group.
-			// clang-format off
-			cwave.addGroup({
-				.bloon = b,
-				.spacing = (time_t)spacing*60,
-				.ct = (size_t)count,
-				.dur = (time_t)dur*60
-			});
-			// clang-format on
-		}
-
-		//Append the wave.
-		map.addWave(cwave);
-	}
-}
-
-}
 }
