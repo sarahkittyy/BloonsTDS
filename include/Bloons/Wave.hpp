@@ -2,7 +2,6 @@
 
 #include <deque>
 #include <functional>
-#include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -83,6 +82,18 @@ public:
 	void stop();
 
 	/**
+	 * @return true If the wave is ongoing.
+	 *  
+	 */
+	bool isStarted();
+
+	/**
+	 * @return true If the wave is done sending.
+	 *  
+	 */
+	bool isDone();
+
+	/**
 	 * @brief Update the wave. Call once per frame, while running.
 	 * Calling while stopped will have no effect.
 	 * 
@@ -95,6 +106,13 @@ private:
 	 * 
 	 */
 	bool mStarted;
+
+	/**
+	 * @brief True if all the waves are out.
+	 * Not necessarily equated to stopping.
+	 * 
+	 */
+	bool mDone;
 
 	/**
 	 * @brief The constant groups of bloons to send over the course of the wave.
