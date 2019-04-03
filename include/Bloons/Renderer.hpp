@@ -17,11 +17,26 @@ namespace Bloons
 class Renderer : public sf::Drawable, public sf::Transformable
 {
 public:
+	/**
+	 * @brief Construct a new Renderer.
+	 * 
+	 * @param bloon The name of the bloon to render.
+	 */
 	Renderer(std::string bloon);
 
+	/**
+	 * @brief Updates the internal animated sprite.
+	 * 
+	 * @remarks Call once per frame.
+	 * 
+	 */
 	void update();
 
 private:
+	/**
+	 * @brief SFML's draw() override. 
+	 * 
+	 */
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	/**
