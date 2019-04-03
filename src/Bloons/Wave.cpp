@@ -7,9 +7,10 @@ Wave::Wave()
 {
 	mStarted	  = false;
 	mCurrentGroup = 0;
+	mDone		  = false;
 }
 
-void Wave::addGroup(Wave::BloonGroup b)
+void Wave::addGroup(BloonGroup b)
 {
 	mGroups.push_back(b);
 }
@@ -32,26 +33,36 @@ void Wave::start()
 	mStarted	  = true;
 	mCurrentGroup = 0;
 	mSubTimer	 = 0;
+	mDone		  = false;
 	nextGroup();
-	std::cout << "wave started\n";
+}
+
+bool Wave::isStarted()
+{
+	return mStarted;
+}
+
+bool Wave::isDone()
+{
+	return mDone;
 }
 
 void Wave::stop()
 {
 	mStarted = false;
+	mDone	= true;
 	mActiveGroups.clear();
-	std::cout << "wave stopped\n";
 }
 
 void Wave::update()
 {
-	if (!mStarted)
+	if (!mStarted || mDone)
 	{
 		return;
 	}
 
 	//We can send another wave if the top wave's duration is over.
-	if (mSubTimer >= mActiveGroups.back().group->dur)
+	if (mSubTimer > mActiveGroups.back().group->dur)
 	{
 		if (mCurrentGroup < mGroups.size())
 		{
@@ -60,7 +71,7 @@ void Wave::update()
 		}
 		else
 		{
-			stop();
+			mDone = true;
 			return;
 		}
 	}
