@@ -44,6 +44,11 @@ void Map::init(std::string name)
 	file >> map_data;
 	file.close();
 
+	//Usually the size of the tile,
+	//multiplies the path position
+	//by this value. Used for convenience
+	float factor = map_data.at("path-factor").get<float>();
+
 	//Iterate over all paths of the map.
 	for (auto& path : map_data.at("paths")
 						  .get<std::vector<json::array_t>>())
@@ -54,7 +59,7 @@ void Map::init(std::string name)
 		for (auto& pos_arr : path)
 		{
 			sf::Vector2f pos{
-				pos_arr[0], pos_arr[1]};
+				pos_arr[0].get<float>() * factor, pos_arr[1].get<float>() * factor};
 
 			//Append the position to the path.
 			cpath.addNode({.pos = pos});
