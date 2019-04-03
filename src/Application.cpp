@@ -17,10 +17,10 @@ Application::Application()
 								 "resource/maps/map.json");
 
 	//Init the bloon loader.
-	Bloons::Loader::BloonLoader::init(mResources);
+	Bloons::Loader::init(mResources);
 
 	//Init the bloon map.
-	Bloons::Loader::loadMap(mMap, "map");
+	mMap.init("map");
 
 	//mTowerManager.placeTower({.name = "dart-monkey", .pos = {100, 100}});
 }
@@ -72,6 +72,7 @@ int Application::run()
 
 		mWindow.draw(mMapRenderer);
 		mWindow.draw(mTowerManager);
+		mWindow.draw(mMap);
 
 		//Draw ImGui
 		ImGui::SFML::Render(mWindow);
