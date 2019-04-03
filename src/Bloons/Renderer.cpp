@@ -4,8 +4,8 @@ namespace Bloons
 {
 
 Renderer::Renderer(std::string bloon)
-	: mSpr(Loader::BloonLoader::getBloonTexture()),
-	  mBloon(Loader::BloonLoader::getBloon(bloon))
+	: mSpr(Loader::getBloonTexture()),
+	  mBloon(Loader::getBloon(bloon))
 {
 	updateSprite();
 }
@@ -23,10 +23,10 @@ void Renderer::update()
 
 void Renderer::updateSprite()
 {
-	mSpr = AnimatedSprite(Loader::BloonLoader::getBloonTexture());
+	mSpr = AnimatedSprite(Loader::getBloonTexture());
 	mSpr.addAnimation("default", mBloon.getAnimation());
 	mSpr.setAnimation("default");
-	mSpr.setTextureMapSize(Loader::BloonLoader::getTextureMapSize());
+	mSpr.setTextureMapSize(Loader::getTextureMapSize());
 }
 
 }
