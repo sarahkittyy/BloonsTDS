@@ -18,9 +18,9 @@ Tower::Tower(ResourceManager* r,
 	//
 
 	//Get the tower info
-	json info = tower["info"];
-	name	  = info["name"];
-	desc	  = info["desc"];
+	json info  = tower["info"];
+	this->name = info["name"];
+	desc	   = info["desc"];
 
 	//load the texture/sprite.
 	loadSprite(tower, size);
@@ -58,6 +58,16 @@ void Tower::loadSprite(nlohmann::json tower, sf::Vector2f size)
 sf::Sprite Tower::getSprite()
 {
 	return spr;
+}
+
+std::string Tower::getName()
+{
+	return name;
+}
+
+std::string Tower::getDesc()
+{
+	return desc;
 }
 
 ////////////////////////////////////////////

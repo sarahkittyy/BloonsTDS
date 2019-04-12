@@ -41,7 +41,17 @@ public:
 	 */
 	sf::Sprite getSprite();
 
+	/**
+	 * @brief Get the tower's name.
+	 * 
+	 */
+	std::string getName();
 
+	/**
+	 * @brief Get the tower's description.
+	 * 
+	 */
+	std::string getDesc();
 
 private:
 	/**

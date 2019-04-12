@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
 
 #include "imgui/imgui-SFML.h"
 #include "imgui/imgui.h"

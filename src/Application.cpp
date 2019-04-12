@@ -105,6 +105,10 @@ void Application::renderGui()
 
 	sf::FloatRect mapBounds = mMapRenderer.getMapBounds();
 
+	//The gui tower button hovered,
+	//to display stats for.
+	GUI::Tower* hovered = nullptr;
+
 	//Set the tower selection gui position & size.
 	ImGui::SetNextWindowPos(ImVec2(
 		0,
@@ -115,11 +119,20 @@ void Application::renderGui()
 	//Tower Selection GUI.
 	ImGui::Begin("Towers", nullptr, STATIC_FLAGS);
 
+
 	//Iterate over all GUI towers.
 	for (auto& tower : mGUITowerLoader.getGuiTowers())
 	{
+		//Display the tower.
 		ImGui::ImageButton(tower.getSprite());
+		if (ImGui::IsItemHovered())
+		{
+			//Set the currently hovered tower if it's
+			//hovered.
+			hovered = &tower;
+		}
 	}
+
 
 	ImGui::End();
 
@@ -147,6 +160,14 @@ void Application::renderGui()
 	//Stats & upgrades window.
 	ImGui::Begin("Stats", nullptr, STATIC_FLAGS);
 
+
+	//Display tower stats.
+	if (hovered != nullptr)
+	{
+		ImGui::Image(hovered->getSprite());
+		ImGui::Text("%s", hovered->getName().c_str());
+		ImGui::TextWrapped("> %s", hovered->getDesc().c_str());
+	}
 
 
 	ImGui::End();
