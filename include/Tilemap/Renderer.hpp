@@ -51,6 +51,15 @@ public:
 	 */
 	sf::FloatRect getMapBounds();
 
+	/**
+	 * @brief Checks if the given boundary fits into the tilemap. 
+	 * 
+	 * @param bounds The boundaries to check.
+	 *  
+	 * @return true if it's a valid position in-bounds.
+	 */
+	bool isInBounds(sf::FloatRect bounds);
+
 private:
 	/**
 	 * @brief SFML's draw() method 

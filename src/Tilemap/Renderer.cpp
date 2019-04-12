@@ -121,4 +121,9 @@ sf::FloatRect Renderer::getMapBounds()
 		));
 }
 
+bool Renderer::isInBounds(sf::FloatRect bounds)
+{
+	return bounds.intersects(getMapBounds());
+}
+
 }
