@@ -4,7 +4,6 @@
 
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
 
 #include "imgui/imgui-SFML.h"
 #include "imgui/imgui.h"
@@ -18,7 +17,9 @@
 
 #include "GUI/Towers.hpp"
 
-/**d
+#include "Economy.hpp"
+
+/**
  * @brief Main program starting point.
  * 
  */
@@ -62,6 +63,12 @@ private:
 	 * 
 	 */
 	ResourceManager mResources;
+
+	/**
+	 * @brief The main economy object of the game.
+	 * 
+	 */
+	Economy mEconomy;
 
 	/**
 	 * @brief The tilemap renderer.
