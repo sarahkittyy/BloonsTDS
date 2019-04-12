@@ -167,6 +167,11 @@ void Application::renderGui()
 		ImGui::Image(hovered->getSprite());
 		ImGui::Text("%s", hovered->getName().c_str());
 		ImGui::TextWrapped("> %s", hovered->getDesc().c_str());
+		ImGui::Text("Cost:");
+		ImGui::SameLine();
+		ImGui::Image(mResources.texture("resource/misc/money.png"));
+		ImGui::SameLine();
+		ImGui::Text("%d", hovered->getCost());
 	}
 
 
