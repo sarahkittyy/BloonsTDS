@@ -13,4 +13,4 @@ add_executable(BloonsTDS ${sources} ${sources_imgui})
 set_target_properties(BloonsTDS PROPERTIES OUTPUT_NAME "BloonsTDS.out")
 
 target_include_directories(BloonsTDS PUBLIC "include/" "lib/" "lib/imgui/")
-target_link_libraries(BloonsTDS sfml-graphics sfml-window sfml-audio sfml-network sfml-system GL)
+target_link_libraries(BloonsTDS sfml-graphics sfml-window sfml-audio sfml-network sfml-system GL stdc++fs)
