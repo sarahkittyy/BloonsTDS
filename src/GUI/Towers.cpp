@@ -21,6 +21,7 @@ Tower::Tower(ResourceManager* r,
 	json info  = tower["info"];
 	this->name = info["name"];
 	desc	   = info["desc"];
+	cost	   = info["cost"].get<int>();
 
 	//load the texture/sprite.
 	loadSprite(tower, size);
@@ -68,6 +69,11 @@ std::string Tower::getName()
 std::string Tower::getDesc()
 {
 	return desc;
+}
+
+int Tower::getCost()
+{
+	return cost;
 }
 
 ////////////////////////////////////////////

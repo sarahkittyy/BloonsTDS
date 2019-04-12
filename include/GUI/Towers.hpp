@@ -53,6 +53,8 @@ public:
 	 */
 	std::string getDesc();
 
+	int getCost();
+
 private:
 	/**
 	 * @brief The tower's name.
@@ -65,6 +67,12 @@ private:
 	 * 
 	 */
 	std::string desc;
+
+	/**
+	 * @brief The cost of the tower.
+	 * 
+	 */
+	int cost;
 
 	/**
 	 * @brief The tower's texture.

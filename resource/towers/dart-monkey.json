@@ -3,7 +3,8 @@
 	"mapsize": [2, 2],
 	"info": {
 		"name": "Dart Monkey",
-		"desc": "Throws darts!"
+		"desc": "Throws darts!",
+		"cost": 80
 	},
 	"animations": {
 		"regular": {
