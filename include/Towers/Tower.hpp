@@ -34,6 +34,19 @@ public:
 	virtual void update();
 
 	/**
+	 * @brief Set the name of the tower.
+	 * 
+	 */
+	void setName(std::string name);
+
+	/**
+	 * @brief Get the name of the tower.
+	 * 
+	 * @return std::string The name of the tower.
+	 */
+	std::string getName() const;
+
+	/**
 	 * @brief Set the Texture of the internal animated sprite.
 	 * 
 	 * @param tex 
@@ -64,6 +77,13 @@ public:
 	 */
 	void setTextureMapSize(sf::Vector2u size);
 
+	/**
+	 * @brief Get the Global Bounds of the tower.
+	 * 
+	 * @return sf::FloatRect The boundary rectangle of the tower sprite.
+	 */
+	sf::FloatRect getGlobalBounds();
+
 private:
 	/**
 	 * @brief SFML's draw() override.
@@ -76,6 +96,12 @@ private:
 	 * 
 	 */
 	sf::Texture* mTex;
+
+	/**
+	 * @brief The name of the tower.
+	 * 
+	 */
+	std::string mName;
 
 	/**
 	 * @brief The sprite of the tower itself.

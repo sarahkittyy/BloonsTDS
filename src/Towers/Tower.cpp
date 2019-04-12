@@ -20,6 +20,16 @@ void Tower::update()
 	mSprite.update();
 }
 
+void Tower::setName(std::string name)
+{
+	mName = name;
+}
+
+std::string Tower::getName() const
+{
+	return mName;
+}
+
 void Tower::setTexture(sf::Texture* tex)
 {
 	mTex = tex;
@@ -39,6 +49,11 @@ void Tower::setUpgrade(std::string name)
 void Tower::setTextureMapSize(sf::Vector2u size)
 {
 	mSprite.setTextureMapSize(size);
+}
+
+sf::FloatRect Tower::getGlobalBounds()
+{
+	return getTransform().transformRect(mSprite.getGlobalBounds());
 }
 
 void Tower::draw(sf::RenderTarget& target, sf::RenderStates states) const
