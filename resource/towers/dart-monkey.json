@@ -1,6 +1,10 @@
 {
 	"sprite": "dart-monkey.png",
 	"mapsize": [2, 2],
+	"info": {
+		"name": "Dart Monkey",
+		"desc": "Throws darts!"
+	},
 	"animations": {
 		"regular": {
 			"speed": 1,
