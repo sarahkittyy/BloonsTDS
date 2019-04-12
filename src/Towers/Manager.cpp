@@ -28,7 +28,7 @@ void Manager::update()
 void Manager::placeTower(Manager::TowerFramework framework)
 {
 	//Get the texture of the tower.
-	sf::Texture* tex = &mResources.texture("resource/tower/" + framework.name + ".png");
+	sf::Texture* tex = &mResources.texture("resource/towers/" + framework.name + ".png");
 
 	//Push back a new tower, giving it the initial texture
 	//This texture is just a placeholder, we will update it in
