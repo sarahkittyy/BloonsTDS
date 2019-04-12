@@ -5,6 +5,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -48,11 +49,21 @@ public:
 	std::string getName();
 
 	/**
+	 * @brief Get the actual name of the tower (name of the .json file)
+	 * 
+	 */
+	std::string getActualName();
+
+	/**
 	 * @brief Get the tower's description.
 	 * 
 	 */
 	std::string getDesc();
 
+	/**
+	 * @brief Get the tower's cost.
+	 * 
+	 */
 	int getCost();
 
 private:
@@ -61,6 +72,12 @@ private:
 	 * 
 	 */
 	std::string name;
+
+	/**
+	 * @brief The tower's actual name.
+	 * 
+	 */
+	std::string actualName;
 
 	/**
 	 * @brief The tower's description.
@@ -127,6 +144,14 @@ public:
 	 * @return std::vector<Tower> A vector of all in-game tower options.
 	 */
 	std::vector<Tower>& getGuiTowers();
+
+	/**
+	 * @brief Get a GUI tower by it's name.
+	 * 
+	 * @param name The name of the tower.
+	 * @return Tower& The retrieved tower.
+	 */
+	Tower& getGuiTowerByName(std::string name);
 
 private:
 	/**

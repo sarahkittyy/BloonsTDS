@@ -23,6 +23,8 @@ Tower::Tower(ResourceManager* r,
 	desc	   = info["desc"];
 	cost	   = info["cost"].get<int>();
 
+	actualName = name;
+
 	//load the texture/sprite.
 	loadSprite(tower, size);
 }
@@ -64,6 +66,11 @@ sf::Sprite Tower::getSprite()
 std::string Tower::getName()
 {
 	return name;
+}
+
+std::string Tower::getActualName()
+{
+	return actualName;
 }
 
 std::string Tower::getDesc()
@@ -108,6 +115,18 @@ TowerLoader::TowerLoader(ResourceManager* r, sf::Vector2f size)
 std::vector<Tower>& TowerLoader::getGuiTowers()
 {
 	return mTowers;
+}
+
+Tower& TowerLoader::getGuiTowerByName(std::string name)
+{
+	for (auto& tower : mTowers)
+	{
+		if (tower.getActualName() == name)
+		{
+			return tower;
+		}
+	}
+	throw std::out_of_range("GUI Tower " + name + " not found.");
 }
 
 }
