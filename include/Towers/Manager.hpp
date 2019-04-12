@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -51,10 +52,50 @@ public:
 	void placeTower(TowerFramework framework);
 
 	/**
+	 * @brief Places down the queued tower.
+	 * 
+	 */
+	void placeQueuedTower();
+
+	/**
 	 * @brief Updates all internal towers.
 	 * 
 	 */
 	void update();
+
+	/**
+	 * @brief Place a tower in the player's "hand" -- doesn't
+	 * update it, but is used as a visual for placing towers.
+	 * 
+	 * @param name The name of the tower.
+	 */
+	void queueTower(std::string name);
+
+	/**
+	 * @brief Unqueue the currently queue'd tower.
+	 * 
+	 */
+	void unqueueTower();
+
+	/**
+	 * @return true If a tower is queued.
+	 *   
+	 */
+	bool isQueued();
+
+	/**
+	 * @brief Get the bounds of the queue'd tower.
+	 * 
+	 * @return sf::FloatRect The bounds of the queue'd tower.
+	 */
+	sf::FloatRect getQueuedTowerBounds();
+
+	/**
+	 * @brief Return a const reference to the queue'd tower.
+	 * 
+	 * @return const Tower& The queue'd tower.
+	 */
+	const Tower& queuedTower();
 
 private:
 	/**
@@ -74,6 +115,18 @@ private:
 	 * 
 	 */
 	std::vector<Tower> mTowers;
+
+	/**
+	 * @brief The currently "queued" tower.
+	 * 
+	 */
+	std::unique_ptr<Tower> mQueue;
+
+	/**
+	 * @brief Whether or not a tower is queued.
+	 * 
+	 */
+	bool mQueued;
 };
 
 }
