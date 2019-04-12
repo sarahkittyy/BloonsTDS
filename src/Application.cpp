@@ -3,8 +3,10 @@
 sf::Vector2u Application::WINDOW_SIZE(800, 600);
 
 Application::Application()
-	: mWindow(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y), "Bloons TDS"),
-	  mTowerManager(mResources)
+	: mWindow(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y),
+			  "Bloons TDS"),
+	  mTowerManager(mResources),
+	  mGUITowerLoader(&mResources)
 {
 	srand(time(NULL));
 
@@ -113,7 +115,11 @@ void Application::renderGui()
 	//Tower Selection GUI.
 	ImGui::Begin("Towers", nullptr, STATIC_FLAGS);
 
-
+	//Iterate over all GUI towers.
+	for (auto& tower : mGUITowerLoader.getGuiTowers())
+	{
+		ImGui::ImageButton(tower.getSprite());
+	}
 
 	ImGui::End();
 

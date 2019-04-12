@@ -15,6 +15,8 @@
 #include "Tilemap/Tilemap.hpp"
 #include "Towers/Towers.hpp"
 
+#include "GUI/Towers.hpp"
+
 /**d
  * @brief Main program starting point.
  * 
@@ -77,4 +79,10 @@ private:
 	 * 
 	 */
 	Bloons::Map mMap;
+
+	/**
+	 * @brief GUI Tower loader.
+	 * 
+	 */
+	GUI::TowerLoader mGUITowerLoader;
 };
