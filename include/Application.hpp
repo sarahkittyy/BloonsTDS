@@ -43,6 +43,12 @@ private:
 	sf::RenderWindow mWindow;
 
 	/**
+	 * @brief Renders ImGui components.
+	 * 
+	 */
+	void renderGui();
+
+	/**
 	 * @brief The size of the window.
 	 * 
 	 */

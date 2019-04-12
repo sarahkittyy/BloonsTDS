@@ -66,13 +66,14 @@ int Application::run()
 		//Update ImGui.
 		ImGui::SFML::Update(mWindow, ImGuiClock.restart());
 
-
+		//Render ImGui Components
+		renderGui();
 
 		//End ImGui drawing.
 		ImGui::EndFrame();
 
 		//Begin drawing.
-		mWindow.clear(sf::Color::White);
+		mWindow.clear(sf::Color(109, 83, 43));
 
 		mWindow.draw(mMapRenderer);
 		mWindow.draw(mTowerManager);
@@ -88,4 +89,59 @@ int Application::run()
 	ImGui::SFML::Shutdown();
 
 	return 0;
+}
+
+void Application::renderGui()
+{
+	//Flags for a static, non-moving imgui window.
+	const ImGuiWindowFlags STATIC_FLAGS =
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoCollapse |
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoScrollbar |
+		ImGuiWindowFlags_NoSavedSettings;
+
+	sf::FloatRect mapBounds = mMapRenderer.getMapBounds();
+
+	//Set the tower selection gui position & size.
+	ImGui::SetNextWindowPos(ImVec2(
+		0,
+		mapBounds.height));
+	ImGui::SetNextWindowSize(ImVec2(
+		mapBounds.width,
+		WINDOW_SIZE.y - mapBounds.height));
+	//Tower Selection GUI.
+	ImGui::Begin("Towers", nullptr, STATIC_FLAGS);
+
+
+
+	ImGui::End();
+
+	//Positioning for the start-wave gui window.
+	ImGui::SetNextWindowPos(ImVec2(
+		mapBounds.width,
+		mapBounds.height));
+	ImGui::SetNextWindowSize(ImVec2(
+		WINDOW_SIZE.x - mapBounds.width,
+		WINDOW_SIZE.y - mapBounds.height));
+	//The start wave gui window.
+	ImGui::Begin("Wave", nullptr, STATIC_FLAGS | ImGuiWindowFlags_NoTitleBar);
+
+
+
+	ImGui::End();
+
+	//Positioning for the status & upgrades window.
+	ImGui::SetNextWindowPos(ImVec2(
+		mapBounds.width,
+		0));
+	ImGui::SetNextWindowSize(ImVec2(
+		WINDOW_SIZE.x - mapBounds.width,
+		mapBounds.height));
+	//Stats & upgrades window.
+	ImGui::Begin("Stats", nullptr, STATIC_FLAGS);
+
+
+
+	ImGui::End();
 }
