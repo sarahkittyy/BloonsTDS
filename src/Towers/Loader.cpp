@@ -39,6 +39,7 @@ void Towers::loadTowerFromName(Tower& tower, sf::Texture* tex, std::string name)
 	};
 
 	//Initialize the tower.
+	tower.setName(name);
 	if (tex->getSize().x + tex->getSize().y == 0)
 	{
 		tex->loadFromFile("resource/towers/" +
