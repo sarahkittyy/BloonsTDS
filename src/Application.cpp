@@ -5,6 +5,7 @@ sf::Vector2u Application::WINDOW_SIZE(800, 600);
 Application::Application()
 	: mWindow(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y),
 			  "Bloons TDS"),
+	  mResources(&mWindow),
 	  mTowerManager(mResources),
 	  mGUITowerLoader(&mResources)
 {
@@ -26,7 +27,16 @@ Application::Application()
 	//Init the bloon map.
 	mMap.init("map");
 
+	//Initialize all tower purchases,
+	//from the GUITowerLoader.
+	for (auto& tower : mGUITowerLoader.getGuiTowers())
+	{
+		mEconomy.addPurchase(tower.getActualName(), tower.getCost());
+	}
+
 	//mTowerManager.placeTower({.name = "dart-monkey", .pos = {100, 100}});
+
+	mEconomy.setBalance(1000);
 }
 
 int Application::run()
@@ -62,6 +72,46 @@ int Application::run()
 		//Regular Updates.
 		mMap.update();
 		mTowerManager.update();
+
+		//If there's a tower being placed right now.
+		if (mTowerManager.isQueued())
+		{
+			//Escape if necessary.
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			{
+				mTowerManager.unqueueTower();
+			}
+			//Otherwise, if we click somewhere...
+			else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				//True if the shift key is held.
+				bool shiftHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
+
+				//The tower queued.
+				const Towers::Tower& queued = mTowerManager.queuedTower();
+				std::string name			= queued.getName();
+
+				//Assert the tower is in-bounds.
+				if (!mMapRenderer.isInBounds(
+						mTowerManager.getQueuedTowerBounds()))
+				{
+					if (!shiftHeld)
+					{
+						mTowerManager.unqueueTower();
+					}
+				}
+				//Assert the tower is purchaseable.
+				//(and try to purchase it)
+				else if (!mEconomy.purchase(name))
+				{
+				}
+				else
+				{
+					//Otherwise, just place the tower.
+					mTowerManager.placeQueuedTower();
+				}
+			}
+		}
 
 		//
 
@@ -123,8 +173,11 @@ void Application::renderGui()
 	//Iterate over all GUI towers.
 	for (auto& tower : mGUITowerLoader.getGuiTowers())
 	{
-		//Display the tower.
-		ImGui::ImageButton(tower.getSprite());
+		//Display the tower button.
+		if (ImGui::ImageButton(tower.getSprite()))
+		{
+			mTowerManager.queueTower(tower.getActualName());
+		}
 		if (ImGui::IsItemHovered())
 		{
 			//Set the currently hovered tower if it's
@@ -160,6 +213,9 @@ void Application::renderGui()
 	//Stats & upgrades window.
 	ImGui::Begin("Stats", nullptr, STATIC_FLAGS);
 
+	ImGui::Image(mResources.texture("resource/misc/money.png"));
+	ImGui::SameLine();
+	ImGui::Text("%d", mEconomy.getBalance());
 
 	//Display tower stats.
 	if (hovered != nullptr)
