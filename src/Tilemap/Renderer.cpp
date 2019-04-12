@@ -101,4 +101,24 @@ void Renderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(mVertices, states);
 }
 
+sf::FloatRect Renderer::getMapBounds()
+{
+	//Get the tile & grid-size.
+	sf::Vector2u tile_size{
+		mSettings["out_tile_size"][0].get<unsigned>(),
+		mSettings["out_tile_size"][1].get<unsigned>()};
+
+	sf::Vector2u grid_size{
+		mSettings["grid_size"][0].get<unsigned>(),
+		mSettings["grid_size"][1].get<unsigned>()};
+
+	//Return the map dimensions.
+	return getTransform().transformRect(sf::FloatRect(
+		0,							 // x
+		0,							 // y
+		tile_size.x * grid_size.x,   // w
+		tile_size.y * grid_size.y	// h
+		));
+}
+
 }

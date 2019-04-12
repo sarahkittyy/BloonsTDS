@@ -44,6 +44,13 @@ public:
 	 */
 	void init(ResourceManager& resources);
 
+	/**
+	 * @brief Get the boundaries of the map.
+	 * 
+	 * @return sf::FloatRect The map boundaries.
+	 */
+	sf::FloatRect getMapBounds();
+
 private:
 	/**
 	 * @brief SFML's draw() method 
