@@ -22,6 +22,7 @@ public:
 	{
 		std::string name;
 		AnimatedSprite::Animation anim;
+		std::string next;
 	};
 
 	/**
