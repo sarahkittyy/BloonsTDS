@@ -22,7 +22,12 @@ void Towers::loadTowerFromName(Tower& tower, sf::Texture* tex, std::string name)
 					{"frames", {0}}	
 				}}
 		}},
-		{"animation_start", "default"}	
+		{"upgrades", {
+			{"default", {
+				{"animation", "default"}	
+			}}
+		}},
+		{"base_upgrade", "default"}	
 	};
 	// clang-format on
 
@@ -47,17 +52,21 @@ void Towers::loadTowerFromName(Tower& tower, sf::Texture* tex, std::string name)
 							  .get<std::string>());
 	}
 	tower.setTexture(tex);
-	for (auto& item : valAt("animations").items())
+	for (auto& item : valAt("upgrades").items())
 	{
+		json anim = valAt("animations").find(item.value().at("animation")).value();
 		// clang-format off
-		tower.addUpgrade(item.key(), {
-			.frames = item.value().at("frames").get<std::vector<unsigned>>(),
-			.speed = item.value().at("speed").get<float>()
+		tower.addUpgrade({
+			.name = item.key(),
+			.anim = {
+				.frames = anim.at("frames").get<std::vector<unsigned>>(),
+				.speed = anim.at("speed").get<float>()
+			}
 		});
 		// clang-format on
 	}
 
-	tower.setUpgrade(valAt("animation_start").get<std::string>());
+	tower.setUpgrade(valAt("base_upgrade").get<std::string>());
 	auto mapsize = valAt("mapsize").get<std::vector<unsigned>>();
 	tower.setTextureMapSize({mapsize[0],
 							 mapsize[1]});

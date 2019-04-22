@@ -15,6 +15,16 @@ class Tower : public sf::Drawable, public sf::Transformable
 {
 public:
 	/**
+	 * @brief An upgrade's data structure.
+	 * 
+	 */
+	struct Upgrade
+	{
+		std::string name;
+		AnimatedSprite::Animation anim;
+	};
+
+	/**
 	 * @brief Construct the tower from the given texture.
 	 * 
 	 * @param tex The texture to use with the tower.
@@ -56,13 +66,12 @@ public:
 	/**
 	 * @brief Add an upgrade to the tower, with a corresponding animation.
 	 * 
-	 * @param name The name of the upgrade.
-	 * @param anim The upgrade animation/graphics.
+	 * @param upgrade The upgrade to add.
 	 */
-	void addUpgrade(std::string name, AnimatedSprite::Animation anim);
+	void addUpgrade(Upgrade upgrade);
 
 	/**
-	 * @brief Set the current upgrade.
+	 * @brief Set the tower to the current upgrade.
 	 * 
 	 * @param name The name of the upgrade.
 	 * 
@@ -102,6 +111,18 @@ private:
 	 * 
 	 */
 	std::string mName;
+
+	/**
+	 * @brief An unordered vector of this tower's upgrades.
+	 * 
+	 */
+	std::vector<Upgrade> mUpgrades;
+
+	/**
+	 * @brief The index in mUpgrades of the currently drawn upgrade.
+	 * 
+	 */
+	size_t mCurrentUpgrade;
 
 	/**
 	 * @brief The sprite of the tower itself.

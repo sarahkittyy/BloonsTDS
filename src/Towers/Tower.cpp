@@ -7,6 +7,7 @@ Tower::Tower(sf::Texture* tex)
 	: mTex(tex),
 	  mSprite(mTex)   //<-- Initialize the sprite & texture
 {
+	mCurrentUpgrade = 0;
 }
 
 
@@ -36,14 +37,23 @@ void Tower::setTexture(sf::Texture* tex)
 	mSprite.setTexture(mTex);
 }
 
-void Tower::addUpgrade(std::string name, AnimatedSprite::Animation anim)
+void Tower::addUpgrade(Upgrade upgrade)
 {
-	mSprite.addAnimation(name, anim);
+	mSprite.addAnimation(upgrade.name, upgrade.anim);
 }
 
 void Tower::setUpgrade(std::string name)
 {
 	mSprite.setAnimation(name);
+	//Find the current upgrade and set mCurrentUpgrade to it.
+	for (unsigned i = 0; i < mUpgrades.size(); ++i)
+	{
+		if (mUpgrades[i].name == name)
+		{
+			mCurrentUpgrade = i;
+			break;
+		}
+	}
 }
 
 void Tower::setTextureMapSize(sf::Vector2u size)

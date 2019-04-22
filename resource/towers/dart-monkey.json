@@ -8,10 +8,15 @@
 		"range": 100,
 		"hotkey": 16
 	},
+	"upgrades": {
+		"default": {
+			"animation": "regular"
+		}
+	},
 	"animations": {
 		"regular": {
 			"speed": 1,
-			"frames": [0, 1]
+			"frames": [0]
 		},
 		"green": {
 			"speed": 1,
@@ -22,5 +27,5 @@
 			"frames": [2, 3]
 		}
 	},
-	"animation_start": "regular"
+	"base_upgrade": "default"
 }
