@@ -4,12 +4,55 @@ namespace Towers
 {
 Manager::Manager(ResourceManager& resources,
 				 Economy& economy,
-				 Tilemap::Renderer* renderer)
+				 Tilemap::Renderer* renderer,
+				 GUI::TowerLoader& gui_towerloader)
 	: mResources(resources),
 	  mEconomy(economy),
+	  mGUITowerLoader(gui_towerloader),
 	  mMapRenderer(renderer)
 {
 	mQueued = false;
+}
+
+Manager::HeldTower::HeldTower()
+{
+}
+
+Manager::HeldTower::HeldTower(Tower* t, int r)
+{
+	tower.reset(t);
+	setRangeState(false);
+	range.setOutlineThickness(0);
+	range.setRadius(r);
+	range.setOrigin(range.getLocalBounds().width / 2.0f,
+					range.getLocalBounds().height / 2.0f);
+}
+
+void Manager::HeldTower::update(sf::Vector2f mouse_pos)
+{
+	//Update the tower.
+	tower->update();
+	sf::FloatRect qbounds = tower->getGlobalBounds();
+	tower->setPosition(mouse_pos.x - qbounds.width / 2.0f,
+					   mouse_pos.y - qbounds.height / 2.0f);
+
+	//Update the radius position.
+	range.setPosition(tower->getPosition() +
+					  sf::Vector2f(
+						  tower->getGlobalBounds().width / 2.0f,
+						  tower->getGlobalBounds().height / 2.0f));
+}
+
+void Manager::HeldTower::setRangeState(bool placeable)
+{
+	if (placeable)
+	{
+		range.setFillColor(sf::Color(127, 127, 127, 127));
+	}
+	else
+	{
+		range.setFillColor(sf::Color(200, 127, 127, 127));
+	}
 }
 
 void Manager::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -22,7 +65,11 @@ void Manager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	//Draw the queued tower if necessary.
 	if (mQueued)
 	{
-		target.draw(*mQueue, states);
+		if (mQueue.range.getRadius() >= 0)
+		{
+			target.draw(mQueue.range, states);
+		}
+		target.draw(*(mQueue.tower), states);
 	}
 }
 
@@ -36,20 +83,17 @@ void Manager::update()
 	//Update the queued tower if necessary.
 	if (mQueued)
 	{
-		mQueue->update();
-
 		sf::Vector2f mouse_pos = (sf::Vector2f)
 			sf::Mouse::getPosition(mResources.getWindow());
-
-		sf::FloatRect qbounds = mQueue->getGlobalBounds();
-
-		mQueue->setPosition(mouse_pos.x - qbounds.width / 2.0f,
-							mouse_pos.y - qbounds.height / 2.0f);
+		mQueue.update(mouse_pos);
 	}
 
 	//If there's a tower being placed right now.
 	if (isQueued())
 	{
+		//Set the queue'd tower's range state.
+		mQueue.setRangeState(isQueuePlaceable());
+
 		//Escape if necessary.
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
@@ -61,38 +105,29 @@ void Manager::update()
 			//True if the shift key is held.
 			bool shiftHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
 
-			//The tower queued.
-			const Towers::Tower& queued = queuedTower();
-			std::string name			= queued.getName();
-
-			//Assert the tower is in-bounds.
-			if (!mMapRenderer->isInBounds(
-					getQueuedTowerBounds()))
+			//If we can't place the queue'd tower,
+			if (!isQueuePlaceable())
 			{
+				//Unqueue if shift isn't held.
 				if (!shiftHeld)
 				{
 					unqueueTower();
 				}
-			}
-			//Assert the tower is purchaseable.
-			//(and try to purchase it)
-			else if (!mEconomy.purchase(name))
-			{
-				unqueueTower();
 			}
 			else
 			{
-				//Otherwise, just place the tower.
+				//Force-Purchase the tower, and place it.
+				mEconomy.purchase(queuedTower().getName(), true);
 				placeQueuedTower();
-
-				//Deactivate if it's unplaceable.
-				if (!shiftHeld)
-				{
-					unqueueTower();
-				}
 			}
 		}
 	}
+}
+
+bool Manager::isQueuePlaceable()
+{
+	return mMapRenderer->isInBounds(getQueuedTowerBounds()) &&
+		   mEconomy.canPurchase(queuedTower().getName());
 }
 
 void Manager::queueTower(std::string name)
@@ -103,17 +138,18 @@ void Manager::queueTower(std::string name)
 	sf::Texture* tex = &mResources.texture("resource/towers/" + name + ".png");
 
 	//Reset the queue'd tower.
-	mQueue.reset(new Tower(tex));
+	int radius = mGUITowerLoader.getGuiTowerByName(name).getRange();
+	mQueue	 = HeldTower(new Tower(tex), radius);
 
 	//Load the tower, passing references to the tower,
 	//and texture for modification. Also pass the name
 	//of the tower, for json loading purposes
-	Towers::loadTowerFromName(*mQueue, tex, name);
+	Towers::loadTowerFromName(*(mQueue.tower), tex, name);
 
 	//Just place it offscreen for the first frame,
 	//so it doesn't appear in the wrong spot until
 	//it updates & moves to the mouse.
-	mQueue->setPosition({-100, -100});
+	mQueue.tower->setPosition({-100, -100});
 }
 
 void Manager::unqueueTower()
@@ -128,17 +164,17 @@ bool Manager::isQueued()
 
 sf::FloatRect Manager::getQueuedTowerBounds()
 {
-	return mQueue->getGlobalBounds();
+	return mQueue.tower->getGlobalBounds();
 }
 
 const Tower& Manager::queuedTower()
 {
-	return *mQueue;
+	return *(mQueue.tower);
 }
 
 void Manager::placeQueuedTower()
 {
-	mTowers.push_back(*mQueue);
+	mTowers.push_back(*(mQueue.tower));
 }
 
 void Manager::placeTower(Manager::TowerFramework framework)

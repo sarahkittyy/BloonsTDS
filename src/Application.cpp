@@ -6,7 +6,10 @@ Application::Application()
 	: mWindow(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y),
 			  "Bloons TDS"),
 	  mResources(&mWindow),
-	  mTowerManager(mResources, mEconomy, &mMapRenderer),
+	  mTowerManager(mResources,
+					mEconomy,
+					&mMapRenderer,
+					mGUITowerLoader),
 	  mGUITowerLoader(&mResources)
 {
 	srand(time(NULL));

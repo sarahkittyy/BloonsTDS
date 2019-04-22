@@ -13,6 +13,7 @@
 #include "ResourceManager.hpp"
 
 #include "Economy.hpp"
+#include "GUI/Towers.hpp"
 #include "Tilemap/Renderer.hpp"
 
 namespace Towers
@@ -25,6 +26,49 @@ namespace Towers
  */
 class Manager : public sf::Drawable
 {
+private:
+	/**
+	 * @brief The data structure for a held tower,
+	 * including any extra data that needs to be carried with it.
+	 * 
+	 */
+	struct HeldTower
+	{
+		/**
+		 * @brief Construct a new Held Tower
+		 * 
+		 */
+		HeldTower();
+
+		/**
+		 * @brief Construct a new Held Tower object
+		 * 
+		 * @param t new-allocated ptr to the tower.
+		 * @param r The range of the tower.
+		 */
+		HeldTower(Tower* t, int r = -1);
+
+		/**
+		 * @brief Update the tower.
+		 * 
+		 * @param mouse_pos The mouse's current position.
+		 * 
+		 */
+		void update(sf::Vector2f mouse_pos);
+
+		/**
+		 * @brief Set the state of the range circle,
+		 * true means a normal circle, false means the circle
+		 * turns red to indicate it's unplaceable.
+		 * 
+		 * @param placeable Whether or not the tower is placeable.
+		 */
+		void setRangeState(bool placeable);
+
+		std::unique_ptr<Tower> tower;
+		sf::CircleShape range;
+	};
+
 public:
 	/**
 	 * @brief Construct a new Manager object
@@ -32,10 +76,12 @@ public:
 	 * @param resources The application resource manager.
 	 * @param economy The application economy manager.
 	 * @param renderer The application tilemap renderer.
+	 * @param gui_towerloader The GUI tower loader.
 	 */
 	Manager(ResourceManager& resources,
 			Economy& economy,
-			Tilemap::Renderer* renderer);
+			Tilemap::Renderer* renderer,
+			GUI::TowerLoader& gui_towerloader);
 
 	/**
 	 * @brief Data structure for placing new towers.
@@ -91,6 +137,12 @@ public:
 	bool isQueued();
 
 	/**
+	 * @return true If the currently queued tower is placeable.
+	 *  
+	 */
+	bool isQueuePlaceable();
+
+	/**
 	 * @brief Get the bounds of the queue'd tower.
 	 * 
 	 * @return sf::FloatRect The bounds of the queue'd tower.
@@ -124,6 +176,12 @@ private:
 	Economy& mEconomy;
 
 	/**
+	 * @brief The application GUI tower loader.
+	 * 
+	 */
+	GUI::TowerLoader& mGUITowerLoader;
+
+	/**
 	 * @brief Pointer to the main tilemap renderer.
 	 * 
 	 */
@@ -139,7 +197,7 @@ private:
 	 * @brief The currently "queued" tower.
 	 * 
 	 */
-	std::unique_ptr<Tower> mQueue;
+	HeldTower mQueue;
 
 	/**
 	 * @brief Whether or not a tower is queued.
