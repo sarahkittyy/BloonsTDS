@@ -12,6 +12,9 @@
 
 #include "ResourceManager.hpp"
 
+#include "Economy.hpp"
+#include "Tilemap/Renderer.hpp"
+
 namespace Towers
 {
 
@@ -27,8 +30,12 @@ public:
 	 * @brief Construct a new Manager object
 	 * 
 	 * @param resources The application resource manager.
+	 * @param economy The application economy manager.
+	 * @param renderer The application tilemap renderer.
 	 */
-	Manager(ResourceManager& resources);
+	Manager(ResourceManager& resources,
+			Economy& economy,
+			Tilemap::Renderer* renderer);
 
 	/**
 	 * @brief Data structure for placing new towers.
@@ -109,6 +116,18 @@ private:
 	 * 
 	 */
 	ResourceManager& mResources;
+
+	/**
+	 * @brief Reference to the application economy.
+	 * 
+	 */
+	Economy& mEconomy;
+
+	/**
+	 * @brief Pointer to the main tilemap renderer.
+	 * 
+	 */
+	Tilemap::Renderer* mMapRenderer;
 
 	/**
 	 * @brief Vector of all towers.

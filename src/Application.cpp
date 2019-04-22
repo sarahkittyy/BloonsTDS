@@ -6,7 +6,7 @@ Application::Application()
 	: mWindow(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y),
 			  "Bloons TDS"),
 	  mResources(&mWindow),
-	  mTowerManager(mResources),
+	  mTowerManager(mResources, mEconomy, &mMapRenderer),
 	  mGUITowerLoader(&mResources)
 {
 	srand(time(NULL));
@@ -72,47 +72,6 @@ int Application::run()
 		//Regular Updates.
 		mMap.update();
 		mTowerManager.update();
-
-		//If there's a tower being placed right now.
-		if (mTowerManager.isQueued())
-		{
-			//Escape if necessary.
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			{
-				mTowerManager.unqueueTower();
-			}
-			//Otherwise, if we click somewhere...
-			else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				//True if the shift key is held.
-				bool shiftHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
-
-				//The tower queued.
-				const Towers::Tower& queued = mTowerManager.queuedTower();
-				std::string name			= queued.getName();
-
-				//Assert the tower is in-bounds.
-				if (!mMapRenderer.isInBounds(
-						mTowerManager.getQueuedTowerBounds()))
-				{
-					if (!shiftHeld)
-					{
-						mTowerManager.unqueueTower();
-					}
-				}
-				//Assert the tower is purchaseable.
-				//(and try to purchase it)
-				else if (!mEconomy.purchase(name))
-				{
-				}
-				else
-				{
-					//Otherwise, just place the tower.
-					mTowerManager.placeQueuedTower();
-				}
-			}
-		}
-
 		//
 
 		//Update ImGui.

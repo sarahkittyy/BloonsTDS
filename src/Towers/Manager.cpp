@@ -2,8 +2,12 @@
 
 namespace Towers
 {
-Manager::Manager(ResourceManager& resources)
-	: mResources(resources)
+Manager::Manager(ResourceManager& resources,
+				 Economy& economy,
+				 Tilemap::Renderer* renderer)
+	: mResources(resources),
+	  mEconomy(economy),
+	  mMapRenderer(renderer)
 {
 	mQueued = false;
 }
@@ -41,6 +45,53 @@ void Manager::update()
 
 		mQueue->setPosition(mouse_pos.x - qbounds.width / 2.0f,
 							mouse_pos.y - qbounds.height / 2.0f);
+	}
+
+	//If there's a tower being placed right now.
+	if (isQueued())
+	{
+		//Escape if necessary.
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		{
+			unqueueTower();
+		}
+		//Otherwise, if we click somewhere...
+		else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			//True if the shift key is held.
+			bool shiftHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
+
+			//The tower queued.
+			const Towers::Tower& queued = queuedTower();
+			std::string name			= queued.getName();
+
+			//Assert the tower is in-bounds.
+			if (!mMapRenderer->isInBounds(
+					getQueuedTowerBounds()))
+			{
+				if (!shiftHeld)
+				{
+					unqueueTower();
+				}
+			}
+			//Assert the tower is purchaseable.
+			//(and try to purchase it)
+			else if (!mEconomy.purchase(name))
+			{
+				unqueueTower();
+			}
+			else
+			{
+				//Otherwise, just place the tower.
+				placeQueuedTower();
+
+				//Deactivate if it's unplaceable.
+				if (!shiftHeld)
+				{
+					unqueueTower();
+				}
+			}
+		}
 	}
 }
 
@@ -87,7 +138,6 @@ const Tower& Manager::queuedTower()
 
 void Manager::placeQueuedTower()
 {
-	mQueued = false;
 	mTowers.push_back(*mQueue);
 }
 
