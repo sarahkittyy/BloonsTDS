@@ -138,8 +138,29 @@ void Manager::update()
 
 bool Manager::isQueuePlaceable()
 {
-	return mMapRenderer->isInBounds(getQueuedTowerBounds()) &&
-		   mEconomy.canPurchase(queuedTower().getName());
+	///////////ASSERTIONS////////////
+	//We have to be in the map's bounds.
+	if (!mMapRenderer->isInBounds(getQueuedTowerBounds()))
+	{
+		return false;
+	}
+	//We have to be able to purchase it.
+	else if (!mEconomy.canPurchase(queuedTower().getName()))
+	{
+		return false;
+	}
+	//Iterate over all placed towers..
+	for (auto& tower : mTowers)
+	{
+		//If any intersect, return false.
+		if (tower.getGlobalBounds().intersects(mQueue.tower->getGlobalBounds()))
+		{
+			return false;
+		}
+	}
+
+	//If none of the previous assertions failed, return true.
+	return true;
 }
 
 void Manager::queueTower(std::string name)
