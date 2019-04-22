@@ -66,6 +66,12 @@ public:
 	 */
 	int getCost();
 
+	/**
+	 * @brief Get the tower's range.
+	 *  
+	 */
+	int getRange();
+
 private:
 	/**
 	 * @brief The tower's name.
@@ -90,6 +96,12 @@ private:
 	 * 
 	 */
 	int cost;
+
+	/**
+	 * @brief The tower's range.
+	 * 
+	 */
+	int range;
 
 	/**
 	 * @brief The tower's texture.

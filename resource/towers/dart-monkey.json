@@ -4,7 +4,8 @@
 	"info": {
 		"name": "Dart Monkey",
 		"desc": "Throws darts!",
-		"cost": 80
+		"cost": 80,
+		"range": 300
 	},
 	"animations": {
 		"regular": {

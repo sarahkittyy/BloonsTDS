@@ -22,6 +22,7 @@ Tower::Tower(ResourceManager* r,
 	this->name = info["name"];
 	desc	   = info["desc"];
 	cost	   = info["cost"].get<int>();
+	range	  = info["range"].get<int>();
 
 	actualName = name;
 
@@ -81,6 +82,11 @@ std::string Tower::getDesc()
 int Tower::getCost()
 {
 	return cost;
+}
+
+int Tower::getRange()
+{
+	return range;
 }
 
 ////////////////////////////////////////////
