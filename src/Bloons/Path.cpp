@@ -71,7 +71,7 @@ std::vector<sf::FloatRect> Path::getPathBounds(float factor)
 	std::vector<sf::FloatRect> ret;
 
 	//For every two sequential nodes..
-	for (int i = 0; i < mNodes.size() - 1; ++i)
+	for (unsigned i = 0; i < mNodes.size() - 1; ++i)
 	{
 		Node n1, n2;
 		n1 = mNodes[i];
