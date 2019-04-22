@@ -18,6 +18,7 @@
 #include "GUI/Towers.hpp"
 
 #include "Economy.hpp"
+#include "Util.hpp"
 
 /**
  * @brief Main program starting point.

@@ -190,6 +190,7 @@ void Application::renderGui()
 		ImGui::Image(mResources.texture("resource/misc/money.png"));
 		ImGui::SameLine();
 		ImGui::Text("%d", hovered->getCost());
+		ImGui::Text("Hotkey: %s", Util::getKeyName(hovered->getHotkey()));
 	}
 
 
