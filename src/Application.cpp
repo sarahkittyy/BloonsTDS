@@ -9,7 +9,8 @@ Application::Application()
 	  mTowerManager(mResources,
 					mEconomy,
 					&mMapRenderer,
-					mGUITowerLoader),
+					mGUITowerLoader,
+					mMap),
 	  mGUITowerLoader(&mResources)
 {
 	srand(time(NULL));
