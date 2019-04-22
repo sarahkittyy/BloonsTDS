@@ -24,7 +24,8 @@ void Towers::loadTowerFromName(Tower& tower, sf::Texture* tex, std::string name)
 		}},
 		{"upgrades", {
 			{"default", {
-				{"animation", "default"}	
+				{"animation", "default"},
+				{"next", "default"}
 			}}
 		}},
 		{"base_upgrade", "default"}	
@@ -61,7 +62,8 @@ void Towers::loadTowerFromName(Tower& tower, sf::Texture* tex, std::string name)
 			.anim = {
 				.frames = anim.at("frames").get<std::vector<unsigned>>(),
 				.speed = anim.at("speed").get<float>()
-			}
+			},
+			.next = item.value().at("next")
 		});
 		// clang-format on
 	}
