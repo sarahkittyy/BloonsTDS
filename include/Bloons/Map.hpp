@@ -72,6 +72,14 @@ public:
 	 */
 	void init(std::string name);
 
+	/**
+	 * @brief Check if the given bounds collide with the map's track.
+	 * 
+	 * @param bounds The boundaries of the object.
+	 * @return true If the bounds intersect the path. 
+	 */
+	bool collidesPath(sf::FloatRect bounds);
+
 private:
 	/**
 	 * @brief SFML's draw() override.

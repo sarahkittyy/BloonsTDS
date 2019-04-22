@@ -16,6 +16,8 @@
 #include "GUI/Towers.hpp"
 #include "Tilemap/Renderer.hpp"
 
+#include "Bloons/Map.hpp"
+
 namespace Towers
 {
 
@@ -77,11 +79,13 @@ public:
 	 * @param economy The application economy manager.
 	 * @param renderer The application tilemap renderer.
 	 * @param gui_towerloader The GUI tower loader.
+	 * @param bloon_manager The app Bloon Manager.
 	 */
 	Manager(ResourceManager& resources,
 			Economy& economy,
 			Tilemap::Renderer* renderer,
-			GUI::TowerLoader& gui_towerloader);
+			GUI::TowerLoader& gui_towerloader,
+			Bloons::Map& bloon_manager);
 
 	/**
 	 * @brief Data structure for placing new towers.
@@ -186,6 +190,12 @@ private:
 	 * 
 	 */
 	Tilemap::Renderer* mMapRenderer;
+
+	/**
+	 * @brief The main bloon map.
+	 * 
+	 */
+	Bloons::Map& mMap;
 
 	/**
 	 * @brief Vector of all towers.

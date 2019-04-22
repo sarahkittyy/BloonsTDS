@@ -5,11 +5,13 @@ namespace Towers
 Manager::Manager(ResourceManager& resources,
 				 Economy& economy,
 				 Tilemap::Renderer* renderer,
-				 GUI::TowerLoader& gui_towerloader)
+				 GUI::TowerLoader& gui_towerloader,
+				 Bloons::Map& bloon_manager)
 	: mResources(resources),
 	  mEconomy(economy),
 	  mGUITowerLoader(gui_towerloader),
-	  mMapRenderer(renderer)
+	  mMapRenderer(renderer),
+	  mMap(bloon_manager)
 {
 	mQueued = false;
 }
@@ -146,6 +148,11 @@ bool Manager::isQueuePlaceable()
 	}
 	//We have to be able to purchase it.
 	else if (!mEconomy.canPurchase(queuedTower().getName()))
+	{
+		return false;
+	}
+	//It can't be on a track.
+	else if (mMap.collidesPath(mQueue.tower->getGlobalBounds()))
 	{
 		return false;
 	}

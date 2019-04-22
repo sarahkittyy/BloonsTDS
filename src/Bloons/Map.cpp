@@ -109,4 +109,9 @@ void Map::init(std::string name)
 	mBloonManager = Manager(mPaths);
 }
 
+bool Map::collidesPath(sf::FloatRect bounds)
+{
+	return mBloonManager.collidesPath(bounds);
+}
+
 }
