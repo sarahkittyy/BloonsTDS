@@ -106,19 +106,17 @@ void Manager::update()
 			bool shiftHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
 
 			//If we can't place the queue'd tower,
-			if (!isQueuePlaceable())
-			{
-				//Unqueue if shift isn't held.
-				if (!shiftHeld)
-				{
-					unqueueTower();
-				}
-			}
-			else
+			if (isQueuePlaceable())
 			{
 				//Force-Purchase the tower, and place it.
 				mEconomy.purchase(queuedTower().getName(), true);
 				placeQueuedTower();
+			}
+
+			//Unqueue if shift isn't held.
+			if (!shiftHeld)
+			{
+				unqueueTower();
 			}
 		}
 	}
