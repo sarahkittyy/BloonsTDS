@@ -66,4 +66,49 @@ int Path::end()
 	return mNodes.size();
 }
 
+std::vector<sf::FloatRect> Path::getPathBounds(float factor)
+{
+	std::vector<sf::FloatRect> ret;
+
+	//For every two sequential nodes..
+	for (int i = 0; i < mNodes.size() - 1; ++i)
+	{
+		Node n1, n2;
+		n1 = mNodes[i];
+		n2 = mNodes[i + 1];
+
+		//Multiply their positions by the factor.
+		n1.pos.x *= factor;
+		n1.pos.y *= factor;
+		n2.pos.x *= factor;
+		n2.pos.y *= factor;
+
+		//Push the corresponding rect.
+		ret.push_back(sf::FloatRect(
+			n1.pos.x,
+			n1.pos.y,
+			n2.pos.x - n1.pos.x + factor,
+			n2.pos.y - n1.pos.y + factor));
+	}
+
+	return ret;
+}
+
+bool Path::collides(sf::FloatRect bounds, float factor)
+{
+	//Get the path collision.
+	auto f = getPathBounds(factor);
+
+	//If the bounds collide with any of the rects, return true.
+	for (auto& rect : f)
+	{
+		if (rect.intersects(bounds))
+		{
+			return true;
+		}
+	}
+	//Otherwise, return false.
+	return false;
+}
+
 }

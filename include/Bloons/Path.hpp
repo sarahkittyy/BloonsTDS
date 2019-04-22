@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics/Rect.hpp>
 #include <SFML/System.hpp>
 
 #include <unordered_map>
@@ -98,12 +99,30 @@ public:
 	 */
 	int end();
 
+	/**
+	 * @brief Get a vector of FloatRects corresponding to the bounds of the path.
+	 * 
+	 * @param factor The size of each tile.
+	 * @return std::vector<sf::FloatRect> 
+	 */
+	std::vector<sf::FloatRect> getPathBounds(float factor = 1);
+
+	/**
+	 * @brief Checks if the given boundaries collide with the path. 
+	 * 
+	 * @param factor The size of each tile, so path coords can be converted to app coords.
+	 * @param bounds The boundaries to check for collision.
+	 * @return true If it collides.
+	 */
+	bool collides(sf::FloatRect bounds, float factor = 1);
+
 private:
 	/**
 	 * @brief Internal vector of nodes.
 	 * 
 	 */
-	std::vector<Node> mNodes;
+	std::vector<Node>
+		mNodes;
 
 	/**
 	 * @brief The current selected node.
@@ -121,5 +140,4 @@ while(path.next() != path.end())
 	...
 }
 */
-
 }
