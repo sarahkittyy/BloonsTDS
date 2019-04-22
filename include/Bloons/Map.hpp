@@ -23,8 +23,16 @@ public:
 	/**
 	 * @brief Construct a new Map.
 	 * 
+	 * @param tileSize The size of a map tile.
 	 */
-	Map();
+	Map(unsigned tileSize = 1);
+
+	/**
+	 * @brief Propagates the given tilesize to the bloon manager,
+	 * 
+	 * @param tileSize The size of a map tile.
+	 */
+	void setTileSize(unsigned tileSize);
 
 	/**
 	 * @brief Add a path to the map.

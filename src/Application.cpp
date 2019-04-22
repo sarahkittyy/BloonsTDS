@@ -29,6 +29,7 @@ Application::Application()
 
 	//Init the bloon map.
 	mMap.init("map");
+	mMap.setTileSize(mMapRenderer.getTileSize());
 
 	//Initialize all tower purchases,
 	//from the GUITowerLoader.

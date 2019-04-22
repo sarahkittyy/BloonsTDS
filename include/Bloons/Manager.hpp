@@ -44,8 +44,17 @@ public:
 	 * @brief Construct a new Manager.
 	 * 
 	 * @param paths All possible map paths.
+	 * @param tileSize The size of a map's tile.
 	 */
-	Manager(std::vector<Path>& paths);
+	Manager(std::vector<Path>& paths,
+			unsigned tileSize = 1);
+
+	/**
+	 * @brief Set the size of a rendered map tile, for calculations.
+	 * 
+	 * @param tileSize The size of a rendered map tile.
+	 */
+	void setTileSize(unsigned tileSize);
 
 	/**
 	 * @brief Run a given wave.
@@ -59,6 +68,14 @@ public:
 	 * 
 	 */
 	void update();
+
+	/**
+	 * @brief Checks if the given bounds collide with the map's paths.
+	 * 
+	 * @param bounds The bounds of the object.
+	 * @return true If they intersect.
+	 */
+	bool collidesPath(sf::FloatRect bounds);
 
 private:
 	/**
@@ -117,6 +134,12 @@ private:
 	 * 
 	 */
 	size_t mPathIndex;
+
+	/**
+	 * @brief The size of a map tile.
+	 * 
+	 */
+	unsigned mTileSize;
 
 	/**
 	 * @brief Move the path index forward.

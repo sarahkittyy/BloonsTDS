@@ -3,9 +3,14 @@
 namespace Bloons
 {
 
-Map::Map()
-	: mBloonManager(mPaths)
+Map::Map(unsigned tileSize)
+	: mBloonManager(mPaths, tileSize)
 {
+}
+
+void Map::setTileSize(unsigned tileSize)
+{
+	mBloonManager.setTileSize(tileSize);
 }
 
 void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const

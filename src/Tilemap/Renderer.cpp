@@ -121,6 +121,11 @@ sf::FloatRect Renderer::getMapBounds()
 		));
 }
 
+unsigned Renderer::getTileSize()
+{
+	return mSettings["out_tile_size"][0].get<unsigned>();
+}
+
 bool Renderer::isInBounds(sf::FloatRect bounds)
 {
 	return bounds.intersects(getMapBounds());

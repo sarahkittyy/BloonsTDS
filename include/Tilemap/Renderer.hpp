@@ -52,6 +52,13 @@ public:
 	sf::FloatRect getMapBounds();
 
 	/**
+	 * @brief Get the size of a single map tile.
+	 * 
+	 * @return unsigned The size of a rendered map tile.
+	 */
+	unsigned getTileSize();
+
+	/**
 	 * @brief Checks if the given boundary fits into the tilemap. 
 	 * 
 	 * @param bounds The boundaries to check.

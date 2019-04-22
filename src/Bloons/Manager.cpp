@@ -3,10 +3,17 @@
 namespace Bloons
 {
 
-Manager::Manager(std::vector<Path>& paths)
+Manager::Manager(std::vector<Path>& paths,
+				 unsigned tileSize)
 {
 	mPaths	 = paths;
+	mTileSize  = tileSize;
 	mPathIndex = 0;
+}
+
+void Manager::setTileSize(unsigned tileSize)
+{
+	mTileSize = tileSize;
 }
 
 void Manager::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -148,6 +155,22 @@ void Manager::update()
 	{
 		mCurrentWave.stop();
 	}
+}
+
+bool Manager::collidesPath(sf::FloatRect bounds)
+{
+	//For every path...
+	for (auto& path : mPaths)
+	{
+		//Return true if the path collides with the bounds.
+		if (path.collides(bounds, (float)mTileSize))
+		{
+			return true;
+		}
+	}
+
+	//False if no path collided.
+	return false;
 }
 
 void Manager::clearQueue()
