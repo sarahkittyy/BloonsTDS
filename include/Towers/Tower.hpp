@@ -81,6 +81,13 @@ public:
 	void setUpgrade(std::string name);
 
 	/**
+	 * @brief Tries to upgrade the tower. If we're on the last upgrade,
+	 * returns false.
+	 * 
+	 */
+	bool upgrade();
+
+	/**
 	 * @brief Wrapper for AnimatedSprite::setTextureMapSize.
 	 * 
 	 * @param size The size of the texture's sprite map.

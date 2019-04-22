@@ -19,6 +19,11 @@ void Tower::update()
 {
 	//Update the internal animated sprite.
 	mSprite.update();
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+	{
+		upgrade();
+	}
 }
 
 void Tower::setName(std::string name)
@@ -40,6 +45,7 @@ void Tower::setTexture(sf::Texture* tex)
 void Tower::addUpgrade(Upgrade upgrade)
 {
 	mSprite.addAnimation(upgrade.name, upgrade.anim);
+	mUpgrades.push_back(upgrade);
 }
 
 void Tower::setUpgrade(std::string name)
@@ -53,6 +59,23 @@ void Tower::setUpgrade(std::string name)
 			mCurrentUpgrade = i;
 			break;
 		}
+	}
+}
+
+bool Tower::upgrade()
+{
+	//Get the name of the next upgrade.
+	std::string next = mUpgrades[mCurrentUpgrade].next;
+	//If the name isn't empty..
+	if (next != "")
+	{
+		//Set the upgrade to that name.
+		setUpgrade(next);
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
