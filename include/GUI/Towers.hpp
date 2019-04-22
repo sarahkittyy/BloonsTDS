@@ -72,6 +72,13 @@ public:
 	 */
 	int getRange();
 
+	/**
+	 * @brief Get the tower's hotkey.
+	 * 
+	 * @return sf::Keyboard::Key The tower's shortcut hotkey.
+	 */
+	sf::Keyboard::Key getHotkey();
+
 private:
 	/**
 	 * @brief The tower's name.
@@ -102,6 +109,12 @@ private:
 	 * 
 	 */
 	int range;
+
+	/**
+	 * @brief The hotkey to press the tower.
+	 * 
+	 */
+	sf::Keyboard::Key hotkey;
 
 	/**
 	 * @brief The tower's texture.

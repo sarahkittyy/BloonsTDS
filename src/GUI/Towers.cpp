@@ -23,6 +23,7 @@ Tower::Tower(ResourceManager* r,
 	desc	   = info["desc"];
 	cost	   = info["cost"].get<int>();
 	range	  = info["range"].get<int>();
+	hotkey	 = info["hotkey"].get<sf::Keyboard::Key>();
 
 	actualName = name;
 
@@ -87,6 +88,11 @@ int Tower::getCost()
 int Tower::getRange()
 {
 	return range;
+}
+
+sf::Keyboard::Key Tower::getHotkey()
+{
+	return hotkey;
 }
 
 ////////////////////////////////////////////

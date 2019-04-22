@@ -88,6 +88,20 @@ void Manager::update()
 		mQueue.update(mouse_pos);
 	}
 
+	//Check for any pressed hotkeys.
+	for (auto& tower : mGUITowerLoader.getGuiTowers())
+	{
+		if (sf::Keyboard::isKeyPressed(tower.getHotkey()))
+		{
+			//If there's already a tower queued, assert
+			//that it isn't the one we're clicking the hotkey for.
+			if (!isQueued() || queuedTower().getName() != tower.getActualName())
+			{
+				queueTower(tower.getActualName());
+			}
+		}
+	}
+
 	//If there's a tower being placed right now.
 	if (isQueued())
 	{

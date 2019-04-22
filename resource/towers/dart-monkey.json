@@ -5,7 +5,8 @@
 		"name": "Dart Monkey",
 		"desc": "Throws darts!",
 		"cost": 80,
-		"range": 100
+		"range": 100,
+		"hotkey": 16
 	},
 	"animations": {
 		"regular": {
