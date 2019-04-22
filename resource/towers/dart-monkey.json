@@ -10,7 +10,16 @@
 	},
 	"upgrades": {
 		"default": {
-			"animation": "regular"
+			"animation": "regular",
+			"next": "lvl1"
+		},
+		"lvl1": {
+			"animation": "green",
+			"next": "lvl2"
+		},
+		"lvl2": {
+			"animation": "red",
+			"next": ""
 		}
 	},
 	"animations": {
