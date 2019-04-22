@@ -102,15 +102,15 @@ public:
 	/**
 	 * @brief Get a vector of FloatRects corresponding to the bounds of the path.
 	 * 
-	 * @param factor The size of each tile.
-	 * @return std::vector<sf::FloatRect> 
+	 * @param factor The width of each tile.
+	 * @return std::vector<sf::FloatRect> A vector of path collisions.
 	 */
 	std::vector<sf::FloatRect> getPathBounds(float factor = 1);
 
 	/**
 	 * @brief Checks if the given boundaries collide with the path. 
 	 * 
-	 * @param factor The size of each tile, so path coords can be converted to app coords.
+	 * @param factor The width of each tile, so path coords can be converted to boundaries.
 	 * @param bounds The boundaries to check for collision.
 	 * @return true If it collides.
 	 */

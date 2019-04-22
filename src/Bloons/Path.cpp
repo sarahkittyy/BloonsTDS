@@ -77,12 +77,6 @@ std::vector<sf::FloatRect> Path::getPathBounds(float factor)
 		n1 = mNodes[i];
 		n2 = mNodes[i + 1];
 
-		//Multiply their positions by the factor.
-		n1.pos.x *= factor;
-		n1.pos.y *= factor;
-		n2.pos.x *= factor;
-		n2.pos.y *= factor;
-
 		//Push the corresponding rect.
 		ret.push_back(sf::FloatRect(
 			n1.pos.x,
