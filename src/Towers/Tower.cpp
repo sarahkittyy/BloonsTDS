@@ -19,11 +19,6 @@ void Tower::update()
 {
 	//Update the internal animated sprite.
 	mSprite.update();
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
-	{
-		upgrade();
-	}
 }
 
 void Tower::setName(std::string name)
